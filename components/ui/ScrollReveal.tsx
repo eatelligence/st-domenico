@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, startTransition } from 'react'
 
 interface ScrollRevealProps {
   children: React.ReactNode
@@ -37,10 +37,10 @@ export default function ScrollReveal({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true)
+          startTransition(() => setVisible(true))
           if (once) observer.disconnect()
         } else if (!once) {
-          setVisible(false)
+          startTransition(() => setVisible(false))
         }
       },
       { threshold: 0.08, rootMargin: '-20px 0px' }

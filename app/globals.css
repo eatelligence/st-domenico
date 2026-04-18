@@ -349,6 +349,16 @@ section {
     padding-top: 4rem;
     padding-bottom: 4rem;
   }
+  /* Kill Ken Burns on mobile — CPU-intensive fullscreen animation */
+  .animate-ken-burns {
+    animation: none !important;
+  }
+  /* Hero: show content immediately on mobile — no staggered word animations */
+  .hero-anim {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* Respect reduced-motion preference */

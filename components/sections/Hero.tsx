@@ -34,7 +34,7 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 text-center pt-24 pb-20 sm:pt-28 sm:pb-24">
         {/* Eyebrow */}
-        <div className="mb-4 sm:mb-6" style={anim(0.2)}>
+        <div className="hero-anim mb-4 sm:mb-6" style={anim(0.2)}>
           <span className="font-bebas text-gold tracking-[0.3em] sm:tracking-[0.4em] text-xs sm:text-sm">
             Richmond, Melbourne · Est. 2015
           </span>
@@ -47,7 +47,7 @@ export default function Hero() {
             {['A', 'slice', 'of', 'Napoli'].map((word, i) => (
               <span
                 key={i}
-                className="inline-block"
+                className="hero-anim inline-block"
                 style={anim(0.5 + i * 0.08)}
               >
                 {word}
@@ -58,7 +58,7 @@ export default function Hero() {
             {['in', 'the', 'heart', 'of', 'Richmond'].map((word, i) => (
               <span
                 key={i}
-                className="inline-block"
+                className="hero-anim inline-block"
                 style={anim(0.82 + i * 0.08)}
               >
                 {word}
@@ -69,7 +69,7 @@ export default function Hero() {
 
         {/* Subtitle — hidden on very small screens to save vertical space */}
         <p
-          className="hidden sm:block font-inter text-cream/75 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed"
+          className="hero-anim hidden sm:block font-inter text-cream/75 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed"
           style={anim(1.3, 0.8, 'fade')}
         >
           Richmond Melbourne&apos;s home of authentic Neapolitan pizza — wood-fired, hand-stretched,
@@ -78,7 +78,7 @@ export default function Hero() {
 
         {/* Short subtitle on xs only */}
         <p
-          className="sm:hidden font-inter text-cream/70 text-sm mx-auto mb-7 leading-relaxed"
+          className="hero-anim sm:hidden font-inter text-cream/70 text-sm mx-auto mb-7 leading-relaxed"
           style={anim(1.3, 0.8, 'fade')}
         >
           Authentic Neapolitan pizza · Richmond · BYO wine
@@ -86,7 +86,7 @@ export default function Hero() {
 
         {/* CTAs */}
         <div
-          className="flex flex-col xs:flex-row flex-wrap items-center justify-center gap-3"
+          className="hero-anim flex flex-col xs:flex-row flex-wrap items-center justify-center gap-3"
           style={anim(1.5)}
         >
           <a
@@ -116,7 +116,7 @@ export default function Hero() {
 
         {/* Stats strip */}
         <div
-          className="mt-10 sm:mt-16 flex items-center justify-center gap-8 sm:gap-16"
+          className="hero-anim mt-10 sm:mt-16 flex items-center justify-center gap-8 sm:gap-16"
           style={anim(1.8, 0.8, 'fade')}
         >
           {[
@@ -137,7 +137,7 @@ export default function Hero() {
       {/* Scroll indicator — hidden on mobile to reduce clutter */}
       <a
         href="#about"
-        className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-cream/50 hover:text-gold transition-colors group"
+        className="hero-anim hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-cream/50 hover:text-gold transition-colors group"
         style={anim(2.2, 0.6, 'fade')}
         aria-label="Scroll down"
       >

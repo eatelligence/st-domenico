@@ -74,19 +74,13 @@ export default function Menu() {
   useEffect(() => {
     const tabs = tabsRef.current
     if (!tabs) return
+    // Observe the tabs element itself — no DOM insertion, no forced reflow
     const observer = new IntersectionObserver(
-      ([entry]) => setIsStuck(!entry.isIntersecting),
-      { threshold: 1, rootMargin: '-57px 0px 0px 0px' }
+      ([entry]) => setIsStuck(entry.intersectionRatio < 1),
+      { threshold: [1], rootMargin: '-57px 0px 0px 0px' }
     )
-    const sentinel = document.createElement('div')
-    sentinel.style.height = '1px'
-    sentinel.style.position = 'absolute'
-    tabs.parentElement?.insertBefore(sentinel, tabs)
-    observer.observe(sentinel)
-    return () => {
-      observer.disconnect()
-      sentinel.remove()
-    }
+    observer.observe(tabs)
+    return () => observer.disconnect()
   }, [])
 
   const currentCategory = menuCategories.find((c) => c.id === activeCategory)

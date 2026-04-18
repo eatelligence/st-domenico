@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Inter, Bebas_Neue } from 'next/font/google'
+import dynamic from 'next/dynamic'
 import './globals.css'
 import { restaurantInfo } from '@/lib/data/hours'
-import CookieBanner from '@/components/ui/CookieBanner'
-import CustomCursor from '@/components/ui/CustomCursor'
+
+const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor'), { ssr: false })
+const CookieBanner = dynamic(() => import('@/components/ui/CookieBanner'), { ssr: false })
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
