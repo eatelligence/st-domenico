@@ -1,6 +1,5 @@
 'use client'
 
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
 import { useRef, MouseEvent, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { specials } from '@/lib/data/specials'
@@ -28,26 +27,18 @@ function SpecialCard({
     setIsTouchDevice(window.matchMedia('(hover: none)').matches)
   }, [])
 
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  const rotateX = useTransform(y, [-0.5, 0.5], [4, -4])
-  const rotateY = useTransform(x, [-0.5, 0.5], [-4, 4])
-  const springConfig = { stiffness: 300, damping: 30 }
-  const rotateXSpring = useSpring(rotateX, springConfig)
-  const rotateYSpring = useSpring(rotateY, springConfig)
-
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (isTouchDevice) return
     const card = cardRef.current
     if (!card) return
     const rect = card.getBoundingClientRect()
-    x.set((e.clientX - rect.left) / rect.width - 0.5)
-    y.set((e.clientY - rect.top) / rect.height - 0.5)
+    const nx = (e.clientX - rect.left) / rect.width - 0.5
+    const ny = (e.clientY - rect.top) / rect.height - 0.5
+    card.style.transform = `perspective(1000px) rotateX(${ny * -8}deg) rotateY(${nx * 8}deg)`
   }
 
   const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
+    if (cardRef.current) cardRef.current.style.transform = ''
   }
 
   const gradients = [
@@ -58,12 +49,12 @@ function SpecialCard({
 
   return (
     <ScrollReveal delay={index * 0.15}>
-      <motion.div
+      <div
         ref={cardRef}
-        style={isTouchDevice ? {} : { rotateX: rotateXSpring, rotateY: rotateYSpring, transformPerspective: 1000 }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className="relative overflow-hidden rounded-none h-[380px] sm:h-[440px] md:h-[480px] group cursor-default"
+        style={{ transition: 'transform 0.3s ease' }}
       >
         {/* Background image */}
         <div className="absolute inset-0">
@@ -76,7 +67,7 @@ function SpecialCard({
           />
         </div>
 
-        {/* Gradient — stronger on mobile so text is always readable */}
+        {/* Gradient */}
         <div className={`absolute inset-0 ${gradients[index]}`} />
 
         {/* Content */}
@@ -99,7 +90,6 @@ function SpecialCard({
 
           <div className="w-8 h-px bg-gold mb-3" />
 
-          {/* Description: always visible on mobile, hover-reveal on desktop */}
           <p className="font-inter text-cream/80 text-sm leading-relaxed mb-3 md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:transition-all md:duration-400">
             {special.description}
           </p>
@@ -126,7 +116,7 @@ function SpecialCard({
 
         <div className="absolute top-5 right-5 w-7 h-7 border-r border-t border-gold/30" />
         <div className="absolute bottom-5 left-5 w-7 h-7 border-l border-b border-gold/30" />
-      </motion.div>
+      </div>
     </ScrollReveal>
   )
 }

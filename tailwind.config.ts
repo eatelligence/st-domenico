@@ -25,9 +25,9 @@ const config: Config = {
         tomato: '#E63946',
       },
       fontFamily: {
-        playfair: ['Playfair Display', 'Georgia', 'serif'],
-        inter: ['Inter', 'sans-serif'],
-        bebas: ['Bebas Neue', 'sans-serif'],
+        playfair: ['var(--font-playfair)', 'Georgia', 'serif'],
+        inter: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        bebas: ['var(--font-bebas)', 'sans-serif'],
       },
       animation: {
         'ken-burns': 'kenBurns 20s ease-in-out infinite alternate',

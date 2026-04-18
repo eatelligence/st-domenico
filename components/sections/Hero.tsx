@@ -1,8 +1,12 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { ChevronDown, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+
+const anim = (delay: number, duration = 0.6, type: 'up' | 'fade' = 'up') => ({
+  animation: `${type === 'up' ? 'fadeInUp' : 'fadeIn'} ${duration}s ease-out both`,
+  animationDelay: `${delay}s`,
+})
 
 export default function Hero() {
   return (
@@ -30,75 +34,60 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 text-center pt-24 pb-20 sm:pt-28 sm:pb-24">
         {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-4 sm:mb-6"
-        >
+        <div className="mb-4 sm:mb-6" style={anim(0.2)}>
           <span className="font-bebas text-gold tracking-[0.3em] sm:tracking-[0.4em] text-xs sm:text-sm">
             Richmond, Melbourne · Est. 2015
           </span>
           <div className="gold-divider mt-3" />
-        </motion.div>
+        </div>
 
         {/* Title */}
         <h1 className="font-playfair italic text-cream mb-5 sm:mb-8 leading-tight">
           <div className="flex flex-wrap justify-center gap-x-2 sm:gap-x-3 gap-y-1 text-[2.25rem] sm:text-6xl lg:text-7xl xl:text-8xl">
             {['A', 'slice', 'of', 'Napoli'].map((word, i) => (
-              <motion.span
+              <span
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 + i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="inline-block"
+                style={anim(0.5 + i * 0.08)}
               >
                 {word}
-              </motion.span>
+              </span>
             ))}
           </div>
           <div className="flex flex-wrap justify-center gap-x-2 sm:gap-x-3 gap-y-1 text-[2.25rem] sm:text-6xl lg:text-7xl xl:text-8xl mt-1">
             {['in', 'the', 'heart', 'of', 'Richmond'].map((word, i) => (
-              <motion.span
+              <span
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.82 + i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="inline-block"
+                style={anim(0.82 + i * 0.08)}
               >
                 {word}
-              </motion.span>
+              </span>
             ))}
           </div>
         </h1>
 
         {/* Subtitle — hidden on very small screens to save vertical space */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.3 }}
+        <p
           className="hidden sm:block font-inter text-cream/75 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed"
+          style={anim(1.3, 0.8, 'fade')}
         >
           Richmond Melbourne&apos;s home of authentic Neapolitan pizza — wood-fired, hand-stretched,
           made with imported San Marzano tomatoes and fior di latte. Open Tuesday to Sunday from 4:30pm. BYO wine.
-        </motion.p>
+        </p>
 
         {/* Short subtitle on xs only */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.3 }}
+        <p
           className="sm:hidden font-inter text-cream/70 text-sm mx-auto mb-7 leading-relaxed"
+          style={anim(1.3, 0.8, 'fade')}
         >
           Authentic Neapolitan pizza · Richmond · BYO wine
-        </motion.p>
+        </p>
 
         {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.5 }}
+        <div
           className="flex flex-col xs:flex-row flex-wrap items-center justify-center gap-3"
+          style={anim(1.5)}
         >
           <a
             href="#bookings"
@@ -123,14 +112,12 @@ export default function Hero() {
           >
             Order Delivery
           </a>
-        </motion.div>
+        </div>
 
         {/* Stats strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.8 }}
+        <div
           className="mt-10 sm:mt-16 flex items-center justify-center gap-8 sm:gap-16"
+          style={anim(1.8, 0.8, 'fade')}
         >
           {[
             { num: '15+', label: 'Years' },
@@ -144,21 +131,19 @@ export default function Hero() {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Scroll indicator — hidden on mobile to reduce clutter */}
-      <motion.a
+      <a
         href="#about"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.2, duration: 0.6 }}
         className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-cream/50 hover:text-gold transition-colors group"
+        style={anim(2.2, 0.6, 'fade')}
         aria-label="Scroll down"
       >
         <span className="font-bebas text-xs tracking-[0.3em]">Discover</span>
         <ChevronDown size={20} className="animate-bounce-gentle group-hover:text-gold" />
-      </motion.a>
+      </a>
     </section>
   )
 }

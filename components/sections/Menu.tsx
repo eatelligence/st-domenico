@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { menuCategories, type MenuItem } from '@/lib/data/menu'
 import ScrollReveal from '@/components/ui/ScrollReveal'
@@ -184,16 +183,12 @@ export default function Menu() {
 
       {/* Menu content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 pb-16 sm:pb-24">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`${activeCategory}-${filter}`}
-            id={`panel-${activeCategory}`}
-            role="tabpanel"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3 }}
-          >
+        <div
+          key={`${activeCategory}-${filter}`}
+          id={`panel-${activeCategory}`}
+          role="tabpanel"
+          style={{ animation: 'menuTabIn 0.25s ease-out both' }}
+        >
             {filteredItems.length === 0 ? (
               <div className="text-center py-16 text-charcoal/40">
                 <p className="font-playfair text-2xl italic mb-2">Nothing here yet</p>
@@ -212,8 +207,7 @@ export default function Menu() {
                 All pizzas available with gluten-free base (+$3) · 12&quot; standard size
               </p>
             )}
-          </motion.div>
-        </AnimatePresence>
+        </div>
       </div>
     </section>
   )

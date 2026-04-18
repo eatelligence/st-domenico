@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
@@ -112,7 +111,6 @@ export default function Gallery() {
             <ScrollReveal key={i} delay={i * 0.06}>
               <button
                 onClick={() => openLightbox(i)}
-                /* spans only apply md+ to avoid broken layout on mobile */
                 className={`relative overflow-hidden group w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-gold
                   aspect-square md:aspect-auto md:h-full
                   ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}
@@ -140,75 +138,68 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightboxOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-charcoal/95 flex items-center justify-center p-4"
-            onClick={closeLightbox}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Image lightbox"
-          >
-            {/* Image */}
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="relative max-w-4xl max-h-[80vh] w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative w-full h-full" style={{ aspectRatio: '16/10' }}>
-                <Image
-                  src={galleryImages[currentIndex].src}
-                  alt={galleryImages[currentIndex].alt}
-                  fill
-                  className="object-contain"
-                  sizes="90vw"
-                  priority
-                />
-              </div>
-              <p className="text-center text-cream/50 text-sm mt-3 font-inter">
-                {galleryImages[currentIndex].alt}
-              </p>
-              <p className="text-center text-cream/30 text-xs mt-1">
-                {currentIndex + 1} / {galleryImages.length}
-              </p>
-            </motion.div>
+      {/* Lightbox — CSS transitions, no framer-motion */}
+      <div
+        className={`fixed inset-0 z-50 bg-charcoal/95 flex items-center justify-center p-4 transition-opacity duration-300 ${
+          lightboxOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={closeLightbox}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Image lightbox"
+        aria-hidden={!lightboxOpen}
+      >
+        {/* Image */}
+        <div
+          className={`relative max-w-4xl max-h-[80vh] w-full transition-all duration-300 ${
+            lightboxOpen ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="relative w-full h-full" style={{ aspectRatio: '16/10' }}>
+            <Image
+              src={galleryImages[currentIndex].src}
+              alt={galleryImages[currentIndex].alt}
+              fill
+              className="object-contain"
+              sizes="90vw"
+            />
+          </div>
+          <p className="text-center text-cream/50 text-sm mt-3 font-inter">
+            {galleryImages[currentIndex].alt}
+          </p>
+          <p className="text-center text-cream/30 text-xs mt-1">
+            {currentIndex + 1} / {galleryImages.length}
+          </p>
+        </div>
 
-            {/* Close */}
-            <button
-              onClick={closeLightbox}
-              className="absolute top-6 right-6 text-cream/60 hover:text-cream transition-colors p-2"
-              aria-label="Close lightbox"
-            >
-              <X size={24} />
-            </button>
+        {/* Close */}
+        <button
+          onClick={closeLightbox}
+          className="absolute top-6 right-6 text-cream/60 hover:text-cream transition-colors p-2"
+          aria-label="Close lightbox"
+        >
+          <X size={24} />
+        </button>
 
-            {/* Prev — 44px touch target */}
-            <button
-              onClick={(e) => { e.stopPropagation(); prev() }}
-              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-cream/60 hover:text-cream transition-colors w-11 h-11 flex items-center justify-center hover:bg-white/10 rounded-full"
-              aria-label="Previous image"
-            >
-              <ChevronLeft size={24} />
-            </button>
+        {/* Prev */}
+        <button
+          onClick={(e) => { e.stopPropagation(); prev() }}
+          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-cream/60 hover:text-cream transition-colors w-11 h-11 flex items-center justify-center hover:bg-white/10 rounded-full"
+          aria-label="Previous image"
+        >
+          <ChevronLeft size={24} />
+        </button>
 
-            {/* Next — 44px touch target */}
-            <button
-              onClick={(e) => { e.stopPropagation(); next() }}
-              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-cream/60 hover:text-cream transition-colors w-11 h-11 flex items-center justify-center hover:bg-white/10 rounded-full"
-              aria-label="Next image"
-            >
-              <ChevronRight size={24} />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* Next */}
+        <button
+          onClick={(e) => { e.stopPropagation(); next() }}
+          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-cream/60 hover:text-cream transition-colors w-11 h-11 flex items-center justify-center hover:bg-white/10 rounded-full"
+          aria-label="Next image"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
     </section>
   )
 }

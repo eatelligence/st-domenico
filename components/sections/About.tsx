@@ -1,7 +1,5 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
 import Image from 'next/image'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
@@ -12,9 +10,6 @@ const badges = [
 ]
 
 export default function About() {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
-
   return (
     <section
       id="about"
@@ -64,7 +59,7 @@ export default function About() {
           </ScrollReveal>
 
           {/* Content side */}
-          <div ref={ref} className="lg:pl-8">
+          <div className="lg:pl-8">
             <ScrollReveal direction="right" delay={0.1}>
               <div className="mb-6">
                 <span className="font-bebas text-terracotta tracking-[0.4em] text-sm">
@@ -107,12 +102,13 @@ export default function About() {
             <ScrollReveal direction="right" delay={0.4}>
               <div className="flex flex-wrap gap-6 mb-10">
                 {badges.map((badge, i) => (
-                  <motion.div
+                  <div
                     key={i}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
                     className="w-24 h-24 rounded-full border-2 border-gold/40 flex flex-col items-center justify-center text-center bg-cream-dark"
+                    style={{
+                      animation: 'popIn 0.5s ease-out both',
+                      animationDelay: `${0.6 + i * 0.1}s`,
+                    }}
                   >
                     <span className="font-playfair text-xl font-bold text-terracotta leading-none">
                       {badge.num}
@@ -123,7 +119,7 @@ export default function About() {
                     >
                       {badge.label}
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </ScrollReveal>
