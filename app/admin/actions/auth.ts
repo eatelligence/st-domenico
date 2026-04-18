@@ -9,7 +9,7 @@ export async function login(prevState: { error: string }, formData: FormData) {
   const hash = process.env.ADMIN_PASSWORD_HASH as string
 
   const valid = await bcrypt.compare(password, hash)
-  if (!valid) return { error: 'Password non corretta.' }
+  if (!valid) return { error: 'Incorrect password.' }
 
   const session = await getSession()
   session.isAdmin = true

@@ -9,7 +9,7 @@ export default async function AdminMenuPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
       <div className="mb-8">
         <h1 className="font-playfair text-2xl sm:text-3xl text-charcoal">Menu</h1>
-        <p className="font-inter text-sm text-charcoal/50 mt-1">Seleziona una categoria per gestire i prodotti.</p>
+        <p className="font-inter text-sm text-charcoal/50 mt-1">Select a category to manage its items.</p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -28,7 +28,7 @@ export default async function AdminMenuPage() {
                   {cat.label}
                 </div>
                 <div className="font-inter text-xs text-charcoal/40 mt-1">
-                  {cat.itemCount} {cat.itemCount === 1 ? 'prodotto' : 'prodotti'}
+                  {cat.itemCount} {cat.itemCount === 1 ? 'item' : 'items'}
                 </div>
               </div>
               <ChevronRight size={16} className="text-charcoal/20 group-hover:text-terracotta mt-1 transition-colors" />

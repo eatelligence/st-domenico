@@ -6,7 +6,7 @@ import { db } from '@/lib/db/client'
 import { getAdminSession } from '@/lib/auth/session'
 
 const CatSchema = z.object({
-  label: z.string().min(1, 'Il nome è obbligatorio'),
+  label: z.string().min(1, 'Name is required'),
   emoji: z.string().default('🍽️'),
 })
 
@@ -33,7 +33,7 @@ export async function createCategory(prevState: { error: string }, formData: For
     invalidate()
     return { error: '' }
   } catch (e) {
-    return { error: e instanceof z.ZodError ? e.issues[0]?.message ?? 'Dati non validi.' : 'Errore durante il salvataggio.' }
+    return { error: e instanceof z.ZodError ? e.issues[0]?.message ?? 'Invalid data.' : 'Error saving.' }
   }
 }
 
@@ -45,7 +45,7 @@ export async function updateCategory(id: string, prevState: { error: string }, f
     invalidate()
     return { error: '' }
   } catch (e) {
-    return { error: e instanceof z.ZodError ? e.issues[0]?.message ?? 'Dati non validi.' : 'Errore durante il salvataggio.' }
+    return { error: e instanceof z.ZodError ? e.issues[0]?.message ?? 'Invalid data.' : 'Error saving.' }
   }
 }
 
@@ -56,7 +56,7 @@ export async function deleteCategory(id: string) {
     args: [id],
   })
   if ((count.rows[0].c as number) > 0) {
-    return { error: 'Rimuovi prima tutti i prodotti dalla categoria.' }
+    return { error: 'Remove all products from this category first.' }
   }
   await db.execute({ sql: `UPDATE menu_categories SET is_active = 0 WHERE id = ?`, args: [id] })
   invalidate()

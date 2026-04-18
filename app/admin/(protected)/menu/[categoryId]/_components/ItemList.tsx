@@ -33,7 +33,7 @@ export default function ItemList({ categoryId, items }: Props) {
         <div className="bg-white border border-gold/20">
           {items.length === 0 && (
             <div className="px-6 py-12 text-center font-inter text-sm text-charcoal/40">
-              Nessun prodotto in questa categoria.
+              No items in this category.
             </div>
           )}
           {items.map((item) => (
@@ -48,7 +48,7 @@ export default function ItemList({ categoryId, items }: Props) {
                   <span className="font-inter text-sm font-medium text-charcoal">{item.name}</span>
                   {item.isVegetarian && <span className="text-[10px] bg-deep-green/10 text-deep-green px-1.5 py-0.5 font-bebas tracking-wide">VEG</span>}
                   {item.isGlutenFree && <span className="text-[10px] bg-gold/10 text-charcoal/60 px-1.5 py-0.5 font-bebas tracking-wide">GF</span>}
-                  {item.isSeafood && <span className="text-[10px] bg-blue-50 text-blue-500 px-1.5 py-0.5 font-bebas tracking-wide">PESCE</span>}
+                  {item.isSeafood && <span className="text-[10px] bg-blue-50 text-blue-500 px-1.5 py-0.5 font-bebas tracking-wide">SEAFOOD</span>}
                   {item.badge && <span className="text-[10px] bg-terracotta/10 text-terracotta px-1.5 py-0.5 font-bebas tracking-wide">{item.badge}</span>}
                 </div>
                 {item.description && (
@@ -67,7 +67,7 @@ export default function ItemList({ categoryId, items }: Props) {
                     onClick={() => handleRestore(item.id)}
                     disabled={isPending}
                     className="p-2 text-charcoal/30 hover:text-deep-green transition-colors"
-                    title="Ripristina"
+                    title="Restore"
                   >
                     <RotateCcw size={14} />
                   </button>
@@ -76,7 +76,7 @@ export default function ItemList({ categoryId, items }: Props) {
                     <button
                       onClick={() => { setEditItem(item); setConfirmDelete(null) }}
                       className="p-2 text-charcoal/30 hover:text-terracotta transition-colors"
-                      title="Modifica"
+                      title="Edit"
                     >
                       <Pencil size={14} />
                     </button>
@@ -87,7 +87,7 @@ export default function ItemList({ categoryId, items }: Props) {
                           disabled={isPending}
                           className="text-terracotta hover:underline"
                         >
-                          Sì
+                          Yes
                         </button>
                         <span className="text-charcoal/30">/</span>
                         <button
@@ -101,7 +101,7 @@ export default function ItemList({ categoryId, items }: Props) {
                       <button
                         onClick={() => setConfirmDelete(item.id)}
                         className="p-2 text-charcoal/30 hover:text-terracotta transition-colors"
-                        title="Elimina"
+                        title="Delete"
                       >
                         <Trash2 size={14} />
                       </button>

@@ -11,7 +11,7 @@ function SubmitButton() {
       disabled={pending}
       className="w-full bg-charcoal text-cream font-bebas tracking-[0.2em] py-3.5 hover:bg-terracotta transition-colors disabled:opacity-50"
     >
-      {pending ? 'Accesso...' : 'Entra nella cucina'}
+      {pending ? 'Signing in...' : 'Enter Kitchen'}
     </button>
   )
 }

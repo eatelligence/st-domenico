@@ -33,9 +33,9 @@ export default async function CategoryPage({ params }: Props) {
           {category.emoji} {category.label}
         </h1>
         <p className="font-inter text-sm text-charcoal/40 mt-1">
-          {items.filter((i) => i.isActive).length} prodotti attivi
+          {items.filter((i) => i.isActive).length} active items
           {items.filter((i) => !i.isActive).length > 0 && (
-            <span className="ml-1">· {items.filter((i) => !i.isActive).length} nascosti</span>
+            <span className="ml-1">· {items.filter((i) => !i.isActive).length} hidden</span>
           )}
         </p>
       </div>

@@ -11,13 +11,12 @@ export default async function LoginPage() {
   return (
     <div className="min-h-screen bg-cream flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        {/* Header */}
         <div className="text-center mb-10">
           <div className="font-bebas text-3xl tracking-[0.15em] text-charcoal mb-1">
             St Domenico
           </div>
           <div className="text-xs font-inter text-charcoal/40 tracking-[0.3em] uppercase">
-            Area Amministrativa
+            Admin Area
           </div>
           <div className="w-12 h-px bg-gold mx-auto mt-4" />
         </div>

@@ -6,7 +6,7 @@ import { db } from '@/lib/db/client'
 import { getAdminSession } from '@/lib/auth/session'
 
 const ItemSchema = z.object({
-  name: z.string().min(1, 'Il nome è obbligatorio'),
+  name: z.string().min(1, 'Name is required'),
   description: z.string().default(''),
   price: z.string().optional(),
   priceGF: z.string().optional(),
@@ -60,7 +60,7 @@ export async function createMenuItem(categoryId: string, prevState: { error: str
     invalidate(categoryId)
     return { error: '' }
   } catch (e) {
-    return { error: e instanceof z.ZodError ? e.issues[0]?.message ?? 'Dati non validi.' : 'Errore durante il salvataggio.' }
+    return { error: e instanceof z.ZodError ? e.issues[0]?.message ?? 'Invalid data.' : 'Error saving.' }
   }
 }
 
@@ -84,7 +84,7 @@ export async function updateMenuItem(id: string, categoryId: string, prevState: 
     invalidate(categoryId)
     return { error: '' }
   } catch (e) {
-    return { error: e instanceof z.ZodError ? e.issues[0]?.message ?? 'Dati non validi.' : 'Errore durante il salvataggio.' }
+    return { error: e instanceof z.ZodError ? e.issues[0]?.message ?? 'Invalid data.' : 'Error saving.' }
   }
 }
 

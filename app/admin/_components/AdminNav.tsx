@@ -7,7 +7,7 @@ import { LayoutGrid, Tag, LogOut } from 'lucide-react'
 
 const links = [
   { href: '/admin/menu', label: 'Menu', icon: LayoutGrid },
-  { href: '/admin/categories', label: 'Categorie', icon: Tag },
+  { href: '/admin/categories', label: 'Categories', icon: Tag },
 ]
 
 export default function AdminNav() {
@@ -19,7 +19,7 @@ export default function AdminNav() {
       <aside className="hidden md:flex flex-col w-56 shrink-0 bg-charcoal min-h-screen">
         <div className="px-6 py-6 border-b border-white/10">
           <div className="font-bebas text-xl tracking-[0.15em] text-cream">St Domenico</div>
-          <div className="text-[10px] font-inter text-cream/30 tracking-[0.25em] uppercase mt-0.5">Admin</div>
+          <div className="text-[10px] font-inter text-cream/30 tracking-[0.25em] uppercase mt-0.5">Dashboard</div>
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-1">
@@ -47,7 +47,7 @@ export default function AdminNav() {
               className="flex items-center gap-3 px-3 py-2.5 w-full text-sm font-inter text-cream/40 hover:text-cream transition-colors rounded hover:bg-white/5"
             >
               <LogOut size={16} />
-              Esci
+              Logout
             </button>
           </form>
         </div>
@@ -73,7 +73,7 @@ export default function AdminNav() {
         <form action={logout} className="flex-1">
           <button type="submit" className="flex flex-col items-center gap-1 py-3 w-full text-[10px] font-inter tracking-wide text-cream/40">
             <LogOut size={18} />
-            Esci
+            Logout
           </button>
         </form>
       </nav>

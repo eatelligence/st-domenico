@@ -13,7 +13,7 @@ function SubmitButton({ label }: { label: string }) {
       disabled={pending}
       className="flex-1 bg-terracotta text-cream font-bebas tracking-[0.15em] py-2.5 hover:bg-terracotta/90 transition-colors disabled:opacity-50 text-sm"
     >
-      {pending ? 'Salvataggio...' : label}
+      {pending ? 'Saving...' : label}
     </button>
   )
 }
@@ -50,12 +50,12 @@ export default function ItemForm({ categoryId, editItem, onCancelEdit }: Props) 
   return (
     <div className="bg-white border border-gold/20 p-6">
       <h2 className="font-playfair text-lg text-charcoal mb-5">
-        {isEditing ? `Modifica: ${editItem.name}` : 'Aggiungi prodotto'}
+        {isEditing ? `Edit: ${editItem.name}` : 'Add item'}
       </h2>
 
       <form ref={formRef} action={action} className="space-y-4">
         <div>
-          <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Nome *</label>
+          <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Name *</label>
           <input
             name="name"
             defaultValue={(f('name') as string) ?? ''}
@@ -65,7 +65,7 @@ export default function ItemForm({ categoryId, editItem, onCancelEdit }: Props) 
         </div>
 
         <div>
-          <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Descrizione</label>
+          <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Description</label>
           <textarea
             name="description"
             defaultValue={(f('description') as string) ?? ''}
@@ -76,34 +76,34 @@ export default function ItemForm({ categoryId, editItem, onCancelEdit }: Props) 
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Prezzo</label>
-            <input name="price" defaultValue={(f('price') as string) ?? ''} placeholder="es. $24"
+            <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Price</label>
+            <input name="price" defaultValue={(f('price') as string) ?? ''} placeholder="e.g. $24"
               className="w-full border border-gold/30 px-3 py-2 text-sm text-charcoal focus:outline-none focus:border-terracotta bg-cream/40" />
           </div>
           <div>
-            <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Prezzo GF</label>
-            <input name="priceGF" defaultValue={(f('priceGF') as string) ?? ''} placeholder="es. $27"
+            <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">GF Price</label>
+            <input name="priceGF" defaultValue={(f('priceGF') as string) ?? ''} placeholder="e.g. $27"
               className="w-full border border-gold/30 px-3 py-2 text-sm text-charcoal focus:outline-none focus:border-terracotta bg-cream/40" />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Allergeni</label>
-          <input name="allergens" defaultValue={(f('allergens') as string) ?? ''} placeholder="es. glutine, latte, uova"
+          <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Allergens</label>
+          <input name="allergens" defaultValue={(f('allergens') as string) ?? ''} placeholder="e.g. gluten, dairy, eggs"
             className="w-full border border-gold/30 px-3 py-2 text-sm text-charcoal focus:outline-none focus:border-terracotta bg-cream/40" />
         </div>
 
         <div>
-          <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Badge (opzionale)</label>
-          <input name="badge" defaultValue={(f('badge') as string) ?? ''} placeholder="es. Free Tue–Thu"
+          <label className="block text-xs font-inter text-charcoal/60 mb-1 uppercase tracking-wider">Badge (optional)</label>
+          <input name="badge" defaultValue={(f('badge') as string) ?? ''} placeholder="e.g. Free Tue–Thu"
             className="w-full border border-gold/30 px-3 py-2 text-sm text-charcoal focus:outline-none focus:border-terracotta bg-cream/40" />
         </div>
 
         <div className="flex flex-wrap gap-4 pt-1">
           {[
-            { name: 'isVegetarian', label: '🌱 Vegetariano', field: 'isVegetarian' as const },
-            { name: 'isGlutenFree', label: 'GF Disponibile', field: 'isGlutenFree' as const },
-            { name: 'isSeafood', label: '🦐 Pesce', field: 'isSeafood' as const },
+            { name: 'isVegetarian', label: '🌱 Vegetarian', field: 'isVegetarian' as const },
+            { name: 'isGlutenFree', label: 'GF Available', field: 'isGlutenFree' as const },
+            { name: 'isSeafood', label: '🦐 Seafood', field: 'isSeafood' as const },
           ].map(({ name, label, field }) => (
             <label key={name} className="flex items-center gap-2 text-sm font-inter text-charcoal/70 cursor-pointer">
               <input type="checkbox" name={name} defaultChecked={(f(field) as boolean) ?? false} className="accent-terracotta w-4 h-4" />
@@ -117,11 +117,11 @@ export default function ItemForm({ categoryId, editItem, onCancelEdit }: Props) 
         )}
 
         <div className="flex gap-2 pt-1">
-          <SubmitButton label={isEditing ? 'Salva modifiche' : 'Aggiungi'} />
+          <SubmitButton label={isEditing ? 'Save changes' : 'Add item'} />
           {isEditing && (
             <button type="button" onClick={onCancelEdit}
               className="px-4 border border-gold/30 text-charcoal/60 font-inter text-sm hover:bg-cream/50 transition-colors">
-              Annulla
+              Cancel
             </button>
           )}
         </div>
