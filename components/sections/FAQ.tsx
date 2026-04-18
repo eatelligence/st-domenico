@@ -50,7 +50,7 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="py-24 lg:py-32 bg-cream grain-overlay"
+      className="py-16 sm:py-24 lg:py-32 bg-cream grain-overlay"
       aria-labelledby="faq-heading"
     >
       <script
@@ -58,7 +58,7 @@ export default function FAQ() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      <div className="max-w-3xl mx-auto px-6">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-14">
           <ScrollReveal>

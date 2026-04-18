@@ -18,7 +18,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative py-24 lg:py-36 bg-cream grain-overlay overflow-hidden"
+      className="relative py-16 sm:py-24 lg:py-36 bg-cream grain-overlay overflow-hidden"
       aria-labelledby="about-heading"
     >
       {/* Decorative elements */}
@@ -30,7 +30,7 @@ export default function About() {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image side */}
           <ScrollReveal direction="left">

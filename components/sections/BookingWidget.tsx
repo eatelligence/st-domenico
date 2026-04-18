@@ -121,13 +121,12 @@ export default function BookingWidget() {
   return (
     <section
       id="bookings"
-      className="py-24 lg:py-36 bg-cream grain-overlay relative"
+      className="py-16 sm:py-24 lg:py-36 bg-cream grain-overlay relative"
       aria-labelledby="booking-heading"
     >
-      {/* Decorative gold border frame */}
       <div className="absolute inset-8 border border-gold/10 pointer-events-none hidden lg:block" />
 
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-14">
           <ScrollReveal>
@@ -179,9 +178,9 @@ export default function BookingWidget() {
           </div>
         </ScrollReveal>
 
-        {/* Accordion */}
+        {/* Accordion — reduced horizontal padding on mobile */}
         <ScrollReveal delay={0.4}>
-          <div className="border border-gold/20 bg-white/50 px-8 py-4">
+          <div className="border border-gold/20 bg-white/50 px-4 sm:px-8 py-4">
             <Accordion items={accordionItems} />
           </div>
         </ScrollReveal>

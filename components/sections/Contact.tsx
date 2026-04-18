@@ -10,15 +10,15 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-24 lg:py-36 bg-charcoal grain-overlay relative"
+      className="py-16 sm:py-24 lg:py-36 bg-charcoal grain-overlay relative"
       aria-labelledby="contact-heading"
     >
       {/* Top gold line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <ScrollReveal>
             <span className="font-bebas text-gold tracking-[0.4em] text-sm">
               Visit Us
@@ -40,7 +40,7 @@ export default function Contact() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Map */}
           <ScrollReveal direction="left">
-            <div className="relative h-96 lg:h-[480px] overflow-hidden border border-gold/10">
+            <div className="relative h-56 sm:h-80 lg:h-[480px] overflow-hidden border border-gold/10">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354068394607!2d144.9887!3d-37.8235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642cabb2d4b73%3A0xf60c3c7e7ad34f0b!2s428%20Bridge%20Rd%2C%20Richmond%20VIC%203121!5e0!3m2!1sen!2sau!4v1700000000000!5m2!1sen!2sau"
                 width="100%"
@@ -164,12 +164,12 @@ export default function Contact() {
             <ScrollReveal direction="right" delay={0.25}>
               <div>
                 <p className="font-bebas text-xs tracking-[0.2em] text-gold/60 mb-4">Follow Us</p>
-                <div className="flex gap-4">
+                <div className="flex flex-col xs:flex-row gap-3">
                   <a
                     href={restaurantInfo.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 border border-gold/20 text-cream/70 hover:text-cream hover:border-gold/50 px-5 py-2.5 transition-all duration-200 text-sm font-inter"
+                    className="flex items-center justify-center gap-2 border border-gold/20 text-cream/70 hover:text-cream hover:border-gold/50 px-5 py-3 transition-all duration-200 text-sm font-inter min-h-[48px]"
                     aria-label="St Domenico on Instagram"
                   >
                     <Instagram size={16} />
@@ -179,7 +179,7 @@ export default function Contact() {
                     href={restaurantInfo.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 border border-gold/20 text-cream/70 hover:text-cream hover:border-gold/50 px-5 py-2.5 transition-all duration-200 text-sm font-inter"
+                    className="flex items-center justify-center gap-2 border border-gold/20 text-cream/70 hover:text-cream hover:border-gold/50 px-5 py-3 transition-all duration-200 text-sm font-inter min-h-[48px]"
                     aria-label="St Domenico on Facebook"
                   >
                     <Facebook size={16} />

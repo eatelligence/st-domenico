@@ -9,10 +9,12 @@ import Gallery from '@/components/sections/Gallery'
 import FAQ from '@/components/sections/FAQ'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
+import MobileCTA from '@/components/ui/MobileCTA'
 
 export default function Home() {
   return (
-    <main className="relative">
+    // has-mobile-cta adds bottom padding on mobile so content never hides behind the CTA bar
+    <main className="relative has-mobile-cta">
       <TopBar />
       <Navbar />
       <Hero />
@@ -24,6 +26,7 @@ export default function Home() {
       <FAQ />
       <Contact />
       <Footer />
+      <MobileCTA />
     </main>
   )
 }

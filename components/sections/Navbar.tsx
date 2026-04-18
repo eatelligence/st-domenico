@@ -33,13 +33,13 @@ export default function Navbar() {
         className={cn(
           'fixed top-0 left-0 right-0 z-40 transition-all duration-500',
           scrolled
-            ? 'navbar-blur bg-cream/90 shadow-sm border-b border-gold/10 py-3'
-            : 'bg-transparent py-5'
+            ? 'navbar-blur bg-cream/90 shadow-sm border-b border-gold/10 py-2 lg:py-3'
+            : 'bg-transparent py-3 lg:py-5'
         )}
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
           <a
             href="#"
@@ -81,17 +81,17 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile hamburger — 44×44 touch target */}
           <button
             className={cn(
-              'lg:hidden p-2 transition-colors',
+              'lg:hidden flex items-center justify-center w-11 h-11 transition-colors rounded',
               scrolled ? 'text-charcoal' : 'text-cream'
             )}
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
             aria-expanded={mobileOpen}
           >
-            <Menu size={24} />
+            <Menu size={22} />
           </button>
         </div>
       </nav>
@@ -112,31 +112,33 @@ export default function Navbar() {
           onClick={() => setMobileOpen(false)}
         />
 
-        {/* Drawer */}
+        {/* Drawer — uses 100dvh so it fills correctly on iOS Safari */}
         <div
           className={cn(
-            'absolute right-0 top-0 bottom-0 w-72 bg-charcoal flex flex-col transition-transform duration-500 ease-out',
+            'absolute right-0 top-0 w-4/5 max-w-xs bg-charcoal flex flex-col transition-transform duration-500 ease-out',
             mobileOpen ? 'translate-x-0' : 'translate-x-full'
           )}
+          style={{ height: '100dvh' }}
         >
-          <div className="flex justify-between items-center p-6 border-b border-gold/10">
+          <div className="flex justify-between items-center px-6 py-5 border-b border-gold/10">
             <span className="font-playfair text-gold text-lg italic">Menu</span>
+            {/* 44×44 close touch target */}
             <button
               onClick={() => setMobileOpen(false)}
-              className="text-cream/60 hover:text-cream transition-colors"
+              className="flex items-center justify-center w-11 h-11 text-cream/60 hover:text-cream transition-colors -mr-2"
               aria-label="Close menu"
             >
-              <X size={22} />
+              <X size={20} />
             </button>
           </div>
 
-          <nav className="flex-1 flex flex-col justify-center px-8 gap-6">
+          <nav className="flex-1 flex flex-col justify-center px-8 gap-5">
             {navLinks.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="font-bebas text-2xl tracking-[0.15em] text-cream hover:text-gold transition-colors"
+                className="font-bebas text-2xl tracking-[0.15em] text-cream hover:text-gold transition-colors py-1"
                 style={{ animationDelay: `${i * 60}ms` }}
               >
                 {link.label}
@@ -144,7 +146,10 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="p-8 border-t border-gold/10">
+          <div
+            className="px-8 pb-8 pt-6 border-t border-gold/10"
+            style={{ paddingBottom: 'calc(2rem + env(safe-area-inset-bottom))' }}
+          >
             <a
               href="#bookings"
               onClick={() => setMobileOpen(false)}
@@ -168,12 +173,13 @@ function LogoSVG({ scrolled }: { scrolled: boolean }) {
 
   return (
     <svg
-      width="160"
-      height="52"
+      width="130"
+      height="42"
       viewBox="0 0 160 52"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="St Domenico logo"
+      className="w-[120px] sm:w-[140px] lg:w-[160px] h-auto"
     >
       {/* Top ornament line */}
       <line x1="10" y1="8" x2="150" y2="8" stroke={goldColor} strokeWidth="0.5" opacity="0.6" />

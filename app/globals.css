@@ -18,10 +18,13 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Offset anchor jumps so fixed navbar never covers headings */
+  scroll-padding-top: 72px;
 }
 
 body {
@@ -30,6 +33,8 @@ body {
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   cursor: none;
+  /* Safe area for iPhone notch / home bar */
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 /* Custom cursor */
@@ -239,13 +244,37 @@ body:has(button:hover) .cursor-ring {
   border-bottom: 2px solid var(--terracotta);
 }
 
-/* Sticky menu tabs */
+/* Sticky menu tabs — offset below navbar */
 .menu-tabs-sticky {
   position: sticky;
-  top: 72px;
+  top: 56px;
   z-index: 30;
   background-color: var(--cream);
   border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+}
+@media (min-width: 1024px) {
+  .menu-tabs-sticky {
+    top: 68px;
+  }
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile sticky CTA bar safe spacing */
+.has-mobile-cta {
+  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  .has-mobile-cta {
+    padding-bottom: 0;
+  }
 }
 
 @keyframes fadeInUp {
@@ -290,5 +319,24 @@ body:has(button:hover) .cursor-ring {
   .cursor-dot,
   .cursor-ring {
     display: none;
+  }
+  /* Tighten section vertical rhythm on mobile */
+  .section-py {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }

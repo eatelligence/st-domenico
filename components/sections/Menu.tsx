@@ -10,54 +10,53 @@ type FilterType = 'all' | 'vegetarian' | 'gf' | 'seafood'
 
 function MenuItemRow({ item }: { item: MenuItem }) {
   return (
-    <div className="py-4 border-b border-gold/10 last:border-0 group hover:bg-cream-dark/50 -mx-2 px-2 transition-colors duration-200 rounded">
-      <div className="flex items-baseline gap-0 w-full">
-        <div className="flex-shrink-0 max-w-[55%]">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-playfair text-[16px] font-semibold text-charcoal group-hover:text-terracotta transition-colors">
+    <div className="py-3 sm:py-4 border-b border-gold/10 last:border-0 group hover:bg-cream-dark/50 -mx-1 px-1 transition-colors duration-200 rounded">
+      {/* Stack layout on mobile, dot-leader row on sm+ */}
+      <div className="flex items-start gap-2 w-full sm:items-baseline">
+
+        {/* Name + badges + description */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="font-playfair text-[15px] sm:text-[16px] font-semibold text-charcoal group-hover:text-terracotta transition-colors leading-snug">
               {item.name}
             </span>
-            <div className="flex gap-1">
+            <div className="flex gap-1 flex-wrap">
               {item.isVegetarian && (
-                <span
-                  className="text-[9px] font-bebas tracking-wide bg-deep-green/10 text-deep-green px-1.5 py-0.5 rounded-sm"
-                  title="Vegetarian"
-                >
+                <span className="text-[8px] font-bebas tracking-wide bg-deep-green/10 text-deep-green px-1.5 py-0.5 rounded-sm whitespace-nowrap" title="Vegetarian">
                   VEG
                 </span>
               )}
               {item.isSeafood && (
-                <span
-                  className="text-[9px] font-bebas tracking-wide bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-sm"
-                  title="Contains seafood"
-                >
+                <span className="text-[8px] font-bebas tracking-wide bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-sm whitespace-nowrap" title="Contains seafood">
                   SEAFOOD
                 </span>
               )}
               {item.badge && (
-                <span className="text-[9px] font-bebas tracking-wide bg-terracotta/10 text-terracotta px-1.5 py-0.5 rounded-sm">
+                <span className="text-[8px] font-bebas tracking-wide bg-terracotta/10 text-terracotta px-1.5 py-0.5 rounded-sm whitespace-nowrap">
                   {item.badge}
                 </span>
               )}
             </div>
           </div>
           {item.description && (
-            <p className="font-inter text-xs text-charcoal/50 mt-0.5 leading-relaxed line-clamp-2">
+            <p className="font-inter text-[11px] sm:text-xs text-charcoal/50 mt-0.5 leading-relaxed line-clamp-2">
               {item.description}
             </p>
           )}
         </div>
 
-        {/* Dots */}
-        <div className="menu-dots" aria-hidden="true" />
+        {/* Dot leader — hidden on mobile, shown sm+ */}
+        <div className="menu-dots hidden sm:block" aria-hidden="true" />
 
-        {/* Price */}
-        <div className="flex-shrink-0 text-right">
+        {/* Price — right-aligned; on mobile sits after the name block */}
+        <div className="flex-shrink-0 text-right self-start sm:self-auto">
           {item.price && (
-            <span className="font-playfair text-[15px] text-charcoal">{item.price}</span>
+            <span className="font-playfair text-[14px] sm:text-[15px] text-charcoal whitespace-nowrap">
+              {item.price}
+            </span>
           )}
           {item.priceGF && (
-            <span className="font-inter text-[11px] text-charcoal/40 ml-2">
+            <span className="font-inter text-[10px] sm:text-[11px] text-charcoal/40 ml-1.5 whitespace-nowrap">
               GF {item.priceGF}
             </span>
           )}
@@ -76,18 +75,15 @@ export default function Menu() {
   useEffect(() => {
     const tabs = tabsRef.current
     if (!tabs) return
-
     const observer = new IntersectionObserver(
       ([entry]) => setIsStuck(!entry.isIntersecting),
-      { threshold: 1, rootMargin: '-73px 0px 0px 0px' }
+      { threshold: 1, rootMargin: '-57px 0px 0px 0px' }
     )
-
     const sentinel = document.createElement('div')
     sentinel.style.height = '1px'
     sentinel.style.position = 'absolute'
     tabs.parentElement?.insertBefore(sentinel, tabs)
     observer.observe(sentinel)
-
     return () => {
       observer.disconnect()
       sentinel.remove()
@@ -104,31 +100,22 @@ export default function Menu() {
   }) ?? []
 
   return (
-    <section
-      id="menu"
-      className="bg-cream grain-overlay relative"
-      aria-labelledby="menu-heading"
-    >
+    <section id="menu" className="bg-cream grain-overlay relative" aria-labelledby="menu-heading">
+
       {/* Header */}
-      <div className="py-20 lg:py-28 pb-0 max-w-7xl mx-auto px-6">
-        <div className="text-center mb-12">
+      <div className="py-14 sm:py-20 lg:py-28 pb-0 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-8 sm:mb-12">
           <ScrollReveal>
-            <span className="font-bebas text-terracotta tracking-[0.4em] text-sm">
-              Our Menu
-            </span>
+            <span className="font-bebas text-terracotta tracking-[0.4em] text-sm">Our Menu</span>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
-            <h2
-              id="menu-heading"
-              className="font-playfair italic text-4xl lg:text-6xl text-charcoal mt-3 mb-4"
-            >
+            <h2 id="menu-heading" className="font-playfair italic text-3xl sm:text-4xl lg:text-6xl text-charcoal mt-3 mb-4">
               La Cucina
             </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
-            <p className="font-inter text-charcoal/60 max-w-md mx-auto text-[17px]">
-              Every dish crafted with imported Italian ingredients. Gluten-free bases available on
-              all pizzas.
+            <p className="font-inter text-charcoal/60 max-w-md mx-auto text-base sm:text-[17px]">
+              Every dish crafted with imported Italian ingredients. Gluten-free bases available on all pizzas.
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.25}>
@@ -136,9 +123,9 @@ export default function Menu() {
           </ScrollReveal>
         </div>
 
-        {/* Filter chips */}
+        {/* Filter chips — scrollable row on mobile */}
         <ScrollReveal delay={0.3}>
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
+          <div className="flex overflow-x-auto scrollbar-hide gap-2 mb-6 sm:mb-8 sm:flex-wrap sm:justify-center pb-1">
             {(
               [
                 { key: 'all', label: 'All' },
@@ -151,7 +138,7 @@ export default function Menu() {
                 key={key}
                 onClick={() => setFilter(key)}
                 className={cn(
-                  'font-bebas text-xs tracking-[0.15em] px-5 py-2.5 border transition-all duration-200',
+                  'font-bebas text-xs tracking-[0.15em] px-4 py-2.5 border transition-all duration-200 whitespace-nowrap shrink-0 min-h-[44px]',
                   filter === key
                     ? 'bg-terracotta text-cream border-terracotta'
                     : 'bg-transparent text-charcoal/60 border-gold/30 hover:border-terracotta hover:text-terracotta'
@@ -164,17 +151,14 @@ export default function Menu() {
         </ScrollReveal>
       </div>
 
-      {/* Sticky tabs */}
+      {/* Sticky category tabs */}
       <div
         ref={tabsRef}
-        className={cn(
-          'menu-tabs-sticky transition-shadow duration-300',
-          isStuck && 'shadow-sm'
-        )}
+        className={cn('menu-tabs-sticky transition-shadow duration-300', isStuck && 'shadow-sm')}
         role="tablist"
         aria-label="Menu categories"
       >
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6">
           <div className="flex overflow-x-auto scrollbar-hide gap-0 -mb-px">
             {menuCategories.map((cat) => (
               <button
@@ -184,13 +168,13 @@ export default function Menu() {
                 aria-selected={activeCategory === cat.id}
                 aria-controls={`panel-${cat.id}`}
                 className={cn(
-                  'flex-shrink-0 font-bebas text-sm tracking-[0.12em] px-5 py-4 border-b-2 transition-all duration-200 whitespace-nowrap',
+                  'flex-shrink-0 font-bebas text-xs sm:text-sm tracking-[0.1em] sm:tracking-[0.12em] px-3 sm:px-5 py-4 border-b-2 transition-all duration-200 whitespace-nowrap min-h-[44px]',
                   activeCategory === cat.id
                     ? 'border-terracotta text-terracotta'
                     : 'border-transparent text-charcoal/50 hover:text-charcoal hover:border-gold/40'
                 )}
               >
-                <span className="mr-1.5">{cat.emoji}</span>
+                <span className="mr-1">{cat.emoji}</span>
                 {cat.label}
               </button>
             ))}
@@ -199,7 +183,7 @@ export default function Menu() {
       </div>
 
       {/* Menu content */}
-      <div className="max-w-7xl mx-auto px-6 py-10 pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 pb-16 sm:pb-24">
         <AnimatePresence mode="wait">
           <motion.div
             key={`${activeCategory}-${filter}`}
@@ -216,16 +200,15 @@ export default function Menu() {
                 <p className="text-sm">Try a different filter or category.</p>
               </div>
             ) : (
-              <div className="grid md:grid-cols-2 gap-x-16">
+              <div className="grid md:grid-cols-2 md:gap-x-16">
                 {filteredItems.map((item, i) => (
                   <MenuItemRow key={`${item.name}-${i}`} item={item} />
                 ))}
               </div>
             )}
 
-            {/* Category note */}
             {activeCategory === 'pizze' && filter === 'all' && (
-              <p className="text-center font-inter text-charcoal/40 text-xs mt-8 tracking-wide">
+              <p className="text-center font-inter text-charcoal/40 text-xs mt-8 tracking-wide px-4">
                 All pizzas available with gluten-free base (+$3) · 12&quot; standard size
               </p>
             )}

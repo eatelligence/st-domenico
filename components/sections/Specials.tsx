@@ -43,6 +43,12 @@ function SpecialCard({
     y.set(0)
   }
 
+  const gradients = [
+    'bg-gradient-to-t from-deep-green/95 via-deep-green/60 to-deep-green/20',
+    'bg-gradient-to-t from-terracotta/95 via-terracotta/60 to-terracotta/20',
+    'bg-gradient-to-t from-charcoal/95 via-charcoal/70 to-charcoal/30',
+  ]
+
   return (
     <ScrollReveal delay={index * 0.15}>
       <motion.div
@@ -50,7 +56,7 @@ function SpecialCard({
         style={{ rotateX: rotateXSpring, rotateY: rotateYSpring, transformPerspective: 1000 }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="relative overflow-hidden rounded-none h-[480px] group cursor-default"
+        className="relative overflow-hidden rounded-none h-[380px] sm:h-[440px] md:h-[480px] group cursor-default"
       >
         {/* Background image */}
         <div className="absolute inset-0">
@@ -63,23 +69,14 @@ function SpecialCard({
           />
         </div>
 
-        {/* Gradient overlay */}
-        <div
-          className={`absolute inset-0 transition-opacity duration-500 ${
-            index === 0
-              ? 'bg-gradient-to-t from-deep-green/95 via-deep-green/50 to-transparent'
-              : index === 1
-              ? 'bg-gradient-to-t from-terracotta/95 via-terracotta/50 to-transparent'
-              : 'bg-gradient-to-t from-charcoal/95 via-charcoal/60 to-transparent'
-          } group-hover:opacity-90`}
-        />
+        {/* Gradient — stronger on mobile so text is always readable */}
+        <div className={`absolute inset-0 ${gradients[index]}`} />
 
         {/* Content */}
-        <div className="absolute inset-0 p-8 flex flex-col justify-end">
-          {/* Price / highlight badge */}
+        <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end">
           {special.highlight && (
-            <div className="mb-4">
-              <span className="font-bebas text-3xl text-gold tracking-wider">
+            <div className="mb-3">
+              <span className="font-bebas text-2xl sm:text-3xl text-gold tracking-wider">
                 {special.highlight}
               </span>
             </div>
@@ -89,39 +86,39 @@ function SpecialCard({
             {special.subtitle}
           </span>
 
-          <h3 className="font-playfair text-2xl text-cream leading-snug mb-3">
+          <h3 className="font-playfair text-xl sm:text-2xl text-cream leading-snug mb-3">
             {special.title}
           </h3>
 
-          <div className="w-8 h-px bg-gold mb-4" />
+          <div className="w-8 h-px bg-gold mb-3" />
 
-          <p className="font-inter text-cream/70 text-sm leading-relaxed mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+          {/* Description: always visible on mobile, hover-reveal on desktop */}
+          <p className="font-inter text-cream/80 text-sm leading-relaxed mb-3 md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:transition-all md:duration-400">
             {special.description}
           </p>
 
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-              <span className="font-inter text-cream/60 text-xs tracking-wide">{special.days}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
+              <span className="font-inter text-cream/70 text-xs tracking-wide">{special.days}</span>
             </div>
             {special.time && (
               <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-                <span className="font-inter text-cream/60 text-xs">{special.time}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
+                <span className="font-inter text-cream/70 text-xs">{special.time}</span>
               </div>
             )}
           </div>
 
           {special.note && (
-            <p className="font-inter text-gold/70 text-xs mt-3 leading-relaxed border-t border-gold/20 pt-3 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-75">
+            <p className="font-inter text-gold/80 text-xs mt-3 leading-relaxed border-t border-gold/20 pt-3 md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 md:transition-all md:duration-500 md:delay-75">
               {special.note}
             </p>
           )}
         </div>
 
-        {/* Corner accent */}
-        <div className="absolute top-6 right-6 w-8 h-8 border-r border-t border-gold/30" />
-        <div className="absolute bottom-6 left-6 w-8 h-8 border-l border-b border-gold/30" />
+        <div className="absolute top-5 right-5 w-7 h-7 border-r border-t border-gold/30" />
+        <div className="absolute bottom-5 left-5 w-7 h-7 border-l border-b border-gold/30" />
       </motion.div>
     </ScrollReveal>
   )
@@ -131,10 +128,9 @@ export default function Specials() {
   return (
     <section
       id="specials"
-      className="py-24 lg:py-36 bg-charcoal relative overflow-hidden"
+      className="py-16 sm:py-24 lg:py-36 bg-charcoal relative overflow-hidden"
       aria-labelledby="specials-heading"
     >
-      {/* Background pattern */}
       <div
         className="absolute inset-0 opacity-[0.02]"
         style={{
@@ -144,9 +140,8 @@ export default function Specials() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-16">
           <ScrollReveal>
             <span className="font-bebas text-terracotta tracking-[0.4em] text-sm">
               Weekly Specials
@@ -155,7 +150,7 @@ export default function Specials() {
           <ScrollReveal delay={0.1}>
             <h2
               id="specials-heading"
-              className="font-playfair italic text-4xl lg:text-6xl text-cream mt-3 mb-4"
+              className="font-playfair italic text-3xl sm:text-4xl lg:text-6xl text-cream mt-3 mb-4"
             >
               What&apos;s On
             </h2>
@@ -165,8 +160,7 @@ export default function Specials() {
           </ScrollReveal>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {specials.map((special, i) => (
             <SpecialCard
               key={special.id}
@@ -177,12 +171,11 @@ export default function Specials() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
         <ScrollReveal delay={0.3}>
-          <div className="text-center mt-14">
+          <div className="text-center mt-10 sm:mt-14">
             <a
               href="#bookings"
-              className="inline-flex items-center gap-3 font-bebas text-base tracking-[0.25em] text-gold border border-gold/30 px-10 py-4 hover:bg-gold hover:text-charcoal transition-all duration-300"
+              className="inline-flex items-center justify-center gap-3 font-bebas text-base tracking-[0.25em] text-gold border border-gold/30 px-8 sm:px-10 py-4 hover:bg-gold hover:text-charcoal transition-all duration-300 min-h-[52px]"
             >
               Reserve Your Table
             </a>

@@ -82,10 +82,10 @@ export default function Gallery() {
   return (
     <section
       id="gallery"
-      className="py-24 lg:py-32 bg-cream-dark grain-overlay"
+      className="py-16 sm:py-24 lg:py-32 bg-cream-dark grain-overlay"
       aria-labelledby="gallery-heading"
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-14">
           <ScrollReveal>
@@ -106,13 +106,19 @@ export default function Gallery() {
           </ScrollReveal>
         </div>
 
-        {/* Masonry-style grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-[200px]">
+        {/* Mobile: uniform 2-col grid. md+: masonry with spans */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:auto-rows-[200px]">
           {galleryImages.map((img, i) => (
             <ScrollReveal key={i} delay={i * 0.06}>
               <button
                 onClick={() => openLightbox(i)}
-                className={`relative overflow-hidden group ${img.span} w-full h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-gold`}
+                /* spans only apply md+ to avoid broken layout on mobile */
+                className={`relative overflow-hidden group w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-gold
+                  aspect-square md:aspect-auto md:h-full
+                  ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}
+                  ${i === 3 ? 'md:col-span-1 md:row-span-2' : ''}
+                  ${i === 6 ? 'md:col-span-2 md:row-span-1' : ''}
+                `}
                 aria-label={`View photo: ${img.alt}`}
               >
                 <Image
@@ -124,8 +130,8 @@ export default function Gallery() {
                 />
                 <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/30 transition-colors duration-300" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-10 h-10 border border-cream/70 flex items-center justify-center">
-                    <span className="text-cream text-xl">+</span>
+                  <div className="w-9 h-9 border border-cream/70 flex items-center justify-center">
+                    <span className="text-cream text-lg leading-none">+</span>
                   </div>
                 </div>
               </button>
@@ -183,22 +189,22 @@ export default function Gallery() {
               <X size={24} />
             </button>
 
-            {/* Prev */}
+            {/* Prev — 44px touch target */}
             <button
               onClick={(e) => { e.stopPropagation(); prev() }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-cream/60 hover:text-cream transition-colors p-3 hover:bg-white/10 rounded-full"
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-cream/60 hover:text-cream transition-colors w-11 h-11 flex items-center justify-center hover:bg-white/10 rounded-full"
               aria-label="Previous image"
             >
-              <ChevronLeft size={28} />
+              <ChevronLeft size={24} />
             </button>
 
-            {/* Next */}
+            {/* Next — 44px touch target */}
             <button
               onClick={(e) => { e.stopPropagation(); next() }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-cream/60 hover:text-cream transition-colors p-3 hover:bg-white/10 rounded-full"
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-cream/60 hover:text-cream transition-colors w-11 h-11 flex items-center justify-center hover:bg-white/10 rounded-full"
               aria-label="Next image"
             >
-              <ChevronRight size={28} />
+              <ChevronRight size={24} />
             </button>
           </motion.div>
         )}
