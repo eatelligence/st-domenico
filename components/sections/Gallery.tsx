@@ -162,6 +162,7 @@ export default function Gallery() {
               src={galleryImages[currentIndex].src}
               alt={galleryImages[currentIndex].alt}
               fill
+              quality={75}
               className="object-contain"
               sizes="90vw"
             />

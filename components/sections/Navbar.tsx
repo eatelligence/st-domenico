@@ -31,7 +31,7 @@ export default function Navbar() {
     <>
       <nav
         className={cn(
-          'w-full transition-all duration-500',
+          'w-full transition-[background-color,border-color,box-shadow,backdrop-filter,padding] duration-500',
           scrolled
             ? 'navbar-blur bg-cream/90 shadow-sm border-b border-gold/10 py-2 lg:py-3'
             : 'bg-transparent py-3 lg:py-5'

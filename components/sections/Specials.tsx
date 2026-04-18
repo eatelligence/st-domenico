@@ -21,23 +21,29 @@ function SpecialCard({
   imageUrl: string
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
+  const rectRef = useRef<DOMRect | null>(null)
   const [isTouchDevice, setIsTouchDevice] = useState(true)
 
   useEffect(() => {
     setIsTouchDevice(window.matchMedia('(hover: none)').matches)
   }, [])
 
+  const handleMouseEnter = () => {
+    if (cardRef.current) rectRef.current = cardRef.current.getBoundingClientRect()
+  }
+
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (isTouchDevice) return
-    const card = cardRef.current
-    if (!card) return
-    const rect = card.getBoundingClientRect()
+    if (isTouchDevice || !rectRef.current) return
+    const rect = rectRef.current
     const nx = (e.clientX - rect.left) / rect.width - 0.5
     const ny = (e.clientY - rect.top) / rect.height - 0.5
-    card.style.transform = `perspective(1000px) rotateX(${ny * -8}deg) rotateY(${nx * 8}deg)`
+    if (cardRef.current) {
+      cardRef.current.style.transform = `perspective(1000px) rotateX(${ny * -8}deg) rotateY(${nx * 8}deg)`
+    }
   }
 
   const handleMouseLeave = () => {
+    rectRef.current = null
     if (cardRef.current) cardRef.current.style.transform = ''
   }
 
@@ -51,6 +57,7 @@ function SpecialCard({
     <ScrollReveal delay={index * 0.15}>
       <div
         ref={cardRef}
+        onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className="relative overflow-hidden rounded-none h-[380px] sm:h-[440px] md:h-[480px] group cursor-default"

@@ -36,6 +36,7 @@ export default function About() {
                   src="/images/StDomenico_20220218_-09241.webp"
                   alt="St Domenico — outdoor dining experience with attentive service in Richmond"
                   fill
+                  quality={70}
                   className="object-cover object-center"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
