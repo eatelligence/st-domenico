@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
-import { useRef, MouseEvent } from 'react'
+import { useRef, MouseEvent, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { specials } from '@/lib/data/specials'
 import ScrollReveal from '@/components/ui/ScrollReveal'
@@ -22,6 +22,12 @@ function SpecialCard({
   imageUrl: string
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
+  const [isTouchDevice, setIsTouchDevice] = useState(true)
+
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia('(hover: none)').matches)
+  }, [])
+
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const rotateX = useTransform(y, [-0.5, 0.5], [4, -4])
@@ -31,6 +37,7 @@ function SpecialCard({
   const rotateYSpring = useSpring(rotateY, springConfig)
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (isTouchDevice) return
     const card = cardRef.current
     if (!card) return
     const rect = card.getBoundingClientRect()
@@ -53,7 +60,7 @@ function SpecialCard({
     <ScrollReveal delay={index * 0.15}>
       <motion.div
         ref={cardRef}
-        style={{ rotateX: rotateXSpring, rotateY: rotateYSpring, transformPerspective: 1000 }}
+        style={isTouchDevice ? {} : { rotateX: rotateXSpring, rotateY: rotateYSpring, transformPerspective: 1000 }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         className="relative overflow-hidden rounded-none h-[380px] sm:h-[440px] md:h-[480px] group cursor-default"

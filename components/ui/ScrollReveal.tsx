@@ -1,7 +1,6 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface ScrollRevealProps {
   children: React.ReactNode
@@ -9,6 +8,15 @@ interface ScrollRevealProps {
   direction?: 'up' | 'down' | 'left' | 'right' | 'none'
   className?: string
   once?: boolean
+}
+
+const offsets: Record<string, string> = {
+  up:    'translateY(32px)',
+  down:  'translateY(-32px)',
+  // left/right use Y-only to avoid any horizontal overflow
+  left:  'translateY(20px)',
+  right: 'translateY(20px)',
+  none:  'translateY(0)',
 }
 
 export default function ScrollReveal({
@@ -19,25 +27,41 @@ export default function ScrollReveal({
   once = true,
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once, margin: '-50px' })
+  const [visible, setVisible] = useState(false)
 
-  const directionMap = {
-    up: { y: 40, x: 0 },
-    down: { y: -40, x: 0 },
-    left: { x: 40, y: 0 },
-    right: { x: -40, y: 0 },
-    none: { x: 0, y: 0 },
-  }
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    // Immediately visible if already in viewport on mount
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          if (once) observer.disconnect()
+        } else if (!once) {
+          setVisible(false)
+        }
+      },
+      { threshold: 0.08, rootMargin: '-20px 0px' }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [once])
 
   return (
-    <motion.div
+    <div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, ...directionMap[direction] }}
-      animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
-      transition={{ duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : offsets[direction],
+        // CSS transition — zero JS during animation, GPU-composited
+        transition: `opacity 0.55s ease ${delay}s, transform 0.55s ease ${delay}s`,
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   )
 }

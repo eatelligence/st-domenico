@@ -23,8 +23,9 @@
 
 html {
   scroll-behavior: smooth;
-  /* Offset anchor jumps so fixed navbar never covers headings */
   scroll-padding-top: 72px;
+  /* Prevent any element from creating horizontal scroll */
+  overflow-x: hidden;
 }
 
 body {
@@ -188,10 +189,16 @@ body:has(button:hover) .cursor-ring {
   clip-path: inset(0 0% 0 0);
 }
 
-/* Backdrop blur navbar */
+/* Backdrop blur navbar — disabled on mobile (too expensive, causes jank) */
 .navbar-blur {
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(245, 239, 228, 0.96);
+}
+@media (min-width: 768px) {
+  .navbar-blur {
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    background-color: rgba(245, 239, 228, 0.88);
+  }
 }
 
 /* Card hover tilt */
@@ -267,6 +274,11 @@ body:has(button:hover) .cursor-ring {
   display: none;
 }
 
+/* CSS containment — tells browser each section is self-contained, limits repaint area */
+section {
+  contain: layout style;
+}
+
 /* Mobile sticky CTA bar safe spacing */
 .has-mobile-cta {
   padding-bottom: calc(72px + env(safe-area-inset-bottom));
@@ -288,8 +300,12 @@ body:has(button:hover) .cursor-ring {
 }
 
 @keyframes kenBurns {
-  0% { transform: scale(1.0) translate(0, 0); }
-  100% { transform: scale(1.08) translate(-1%, -1%); }
+  0% { transform: scale(1.0); }
+  100% { transform: scale(1.06); }
+}
+/* Ken Burns container — promote to own GPU layer */
+.animate-ken-burns {
+  will-change: transform;
 }
 
 @keyframes bounceGentle {

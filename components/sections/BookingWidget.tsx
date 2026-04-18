@@ -155,16 +155,17 @@ export default function BookingWidget() {
           </ScrollReveal>
         </div>
 
-        {/* Oddle booking widget */}
+        {/* Oddle booking widget — no overflow-hidden so the iframe renders fully */}
         <ScrollReveal delay={0.3}>
-          <div className="bg-white border border-gold/20 shadow-warm mb-10 relative overflow-hidden">
-            {/* Corner ornaments */}
+          <div className="bg-white border border-gold/20 shadow-warm mb-10 relative">
+            {/* Corner ornaments — pointer-events-none so they never block the widget */}
             <div className="absolute top-4 left-4 w-6 h-6 border-l border-t border-gold/30 z-10 pointer-events-none" />
             <div className="absolute top-4 right-4 w-6 h-6 border-r border-t border-gold/30 z-10 pointer-events-none" />
             <div className="absolute bottom-4 left-4 w-6 h-6 border-l border-b border-gold/30 z-10 pointer-events-none" />
             <div className="absolute bottom-4 right-4 w-6 h-6 border-r border-b border-gold/30 z-10 pointer-events-none" />
 
-            <div id="reserve-container" className="min-h-[320px]" />
+            {/* min-h ensures container is visible while widget loads */}
+            <div id="reserve-container" className="min-h-[400px] w-full" />
           </div>
         </ScrollReveal>
 
