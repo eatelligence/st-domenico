@@ -12,6 +12,7 @@
     "@libsql/client": "^0.17.2",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
+    "critters": "^0.0.23",
     "framer-motion": "^11.3.0",
     "iron-session": "^8.0.4",
     "lucide-react": "^0.400.0",
