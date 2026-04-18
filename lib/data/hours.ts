@@ -1,0 +1,31 @@
+export const openingHours = [
+  { day: 'Monday', hours: 'Closed', open: false },
+  { day: 'Tuesday', hours: '4:30pm – 10:00pm', open: true },
+  { day: 'Wednesday', hours: '4:30pm – 10:00pm', open: true },
+  { day: 'Thursday', hours: '4:30pm – 10:00pm', open: true },
+  { day: 'Friday', hours: '4:30pm – 10:00pm', open: true },
+  { day: 'Saturday', hours: '4:30pm – 10:00pm', open: true },
+  { day: 'Sunday', hours: '4:30pm – 10:00pm', open: true },
+]
+
+export const restaurantInfo = {
+  name: 'St Domenico',
+  address: '428 Bridge Rd, Richmond VIC 3121',
+  suburb: 'Richmond',
+  city: 'Melbourne',
+  state: 'VIC',
+  postcode: '3121',
+  country: 'Australia',
+  phone: '0468 318 624',
+  phoneHref: 'tel:+61468318624',
+  email: 'info@stdomenicopizzabar.com',
+  instagram: 'https://www.instagram.com/stdomenicopizzabar/',
+  facebook: 'https://www.facebook.com/stdomenicopizzabar/',
+  googleMaps: 'https://maps.google.com/?q=428+Bridge+Rd,+Richmond+VIC+3121',
+  orderPickup: 'https://www.menulog.com.au/restaurants-st-domenico-pizza-bar',
+  orderDelivery: 'https://www.ubereats.com/au/store/st-domenico-pizza-bar',
+  bookingUrl: 'https://www.resdiary.com/restaurant/StDomenico',
+  yearEstablished: 2015,
+  cuisine: 'Neapolitan Pizza',
+  priceRange: '$$',
+}
