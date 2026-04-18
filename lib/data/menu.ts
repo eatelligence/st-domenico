@@ -7,6 +7,7 @@ export type MenuItem = {
   isGlutenFree?: boolean
   isSeafood?: boolean
   badge?: string
+  allergens?: string
 }
 
 export type MenuCategory = {

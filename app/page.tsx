@@ -4,7 +4,7 @@ import Hero from '@/components/sections/Hero'
 import About from '@/components/sections/About'
 import Specials from '@/components/sections/Specials'
 import BookingWidget from '@/components/sections/BookingWidget'
-import Menu from '@/components/sections/Menu'
+import MenuServer from '@/components/sections/MenuServer'
 import Gallery from '@/components/sections/Gallery'
 import FAQ from '@/components/sections/FAQ'
 import Contact from '@/components/sections/Contact'
@@ -21,7 +21,7 @@ export default function Home() {
       <About />
       <Specials />
       <BookingWidget />
-      <Menu />
+      <MenuServer />
       <Gallery />
       <FAQ />
       <Contact />

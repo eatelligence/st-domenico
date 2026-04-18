@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { cn } from '@/lib/utils'
-import { menuCategories, type MenuItem } from '@/lib/data/menu'
+import { type MenuItem, type MenuCategory } from '@/lib/data/menu'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
 type FilterType = 'all' | 'vegetarian' | 'gf' | 'seafood'
@@ -65,8 +65,8 @@ function MenuItemRow({ item }: { item: MenuItem }) {
   )
 }
 
-export default function Menu() {
-  const [activeCategory, setActiveCategory] = useState('pizze')
+export default function Menu({ initialCategories }: { initialCategories: MenuCategory[] }) {
+  const [activeCategory, setActiveCategory] = useState(initialCategories[0]?.id ?? 'pizze')
   const [filter, setFilter] = useState<FilterType>('all')
   const [isStuck, setIsStuck] = useState(false)
   const tabsRef = useRef<HTMLDivElement>(null)
@@ -83,7 +83,7 @@ export default function Menu() {
     return () => observer.disconnect()
   }, [])
 
-  const currentCategory = menuCategories.find((c) => c.id === activeCategory)
+  const currentCategory = initialCategories.find((c) => c.id === activeCategory)
 
   const filteredItems = currentCategory?.items.filter((item) => {
     if (filter === 'vegetarian') return item.isVegetarian
@@ -153,7 +153,7 @@ export default function Menu() {
       >
         <div className="max-w-7xl mx-auto px-2 sm:px-6">
           <div className="flex overflow-x-auto scrollbar-hide gap-0 -mb-px">
-            {menuCategories.map((cat) => (
+            {initialCategories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
