@@ -167,6 +167,30 @@ export default function Footer() {
             </a>
           </div>
         </div>
+
+        {/* Credit */}
+        <div className="pt-4 text-center">
+          <p className="font-inter text-cream/20 text-[10px]">
+            Proudly powered by{' '}
+            <a
+              href="https://www.eatelligence.au/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-cream/40 transition-colors underline underline-offset-2"
+            >
+              Eatelligence
+            </a>
+            {' '}·{' '}
+            <a
+              href="https://www.salvorincione.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-cream/40 transition-colors underline underline-offset-2"
+            >
+              Salvo Rincione
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   )
