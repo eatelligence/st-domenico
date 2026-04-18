@@ -36,7 +36,7 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Custom cursor — transform-only for GPU compositing, no left/top transitions */
+/* Custom cursor — all motion handled in JS RAF loop (transform only, GPU-composited) */
 .cursor-dot {
   width: 8px;
   height: 8px;
@@ -48,7 +48,7 @@ body {
   pointer-events: none;
   z-index: 99999;
   will-change: transform;
-  transition: scale 0.2s, background-color 0.2s;
+  transition: background-color 0.2s;
 }
 
 .cursor-ring {
@@ -62,19 +62,16 @@ body {
   pointer-events: none;
   z-index: 99998;
   will-change: transform;
-  transition: scale 0.3s ease, border-color 0.3s ease;
+  transition: border-color 0.3s ease;
 }
 
-body:has(a:hover) .cursor-dot,
-body:has(button:hover) .cursor-dot {
-  scale: 1.5;
-  background-color: var(--gold);
-}
+/* Color-only changes on hover (no geometry — no compositing conflict) */
+body:has(a:hover, button:hover) .cursor-dot  { background-color: var(--gold); }
+body:has(a:hover, button:hover) .cursor-ring { border-color: var(--terracotta); }
 
-body:has(a:hover) .cursor-ring,
-body:has(button:hover) .cursor-ring {
-  scale: 1.5;
-  border-color: var(--terracotta);
+/* Force cursor:none on interactive elements — browser UA overrides body with pointer */
+a, button, input, select, textarea, label, [role="button"], [tabindex] {
+  cursor: none !important;
 }
 
 /* Scrollbar */
