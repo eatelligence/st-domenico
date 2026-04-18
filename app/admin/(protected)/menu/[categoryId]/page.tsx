@@ -17,7 +17,6 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
-      {/* Breadcrumb */}
       <div className="flex items-center gap-2 mb-6">
         <Link href="/admin/menu" className="flex items-center gap-1 text-sm font-inter text-charcoal/40 hover:text-charcoal transition-colors">
           <ChevronLeft size={14} />

@@ -29,7 +29,6 @@ export default function ItemList({ categoryId, items }: Props) {
 
   return (
     <div className="flex flex-col lg:flex-row gap-6">
-      {/* Item list */}
       <div className="flex-1 min-w-0">
         <div className="bg-white border border-gold/20">
           {items.length === 0 && (
@@ -62,7 +61,6 @@ export default function ItemList({ categoryId, items }: Props) {
                 </div>
               </div>
 
-              {/* Actions */}
               <div className="flex items-center gap-1 shrink-0">
                 {!item.isActive ? (
                   <button
@@ -116,7 +114,6 @@ export default function ItemList({ categoryId, items }: Props) {
         </div>
       </div>
 
-      {/* Form panel */}
       <div className="lg:w-80 shrink-0">
         <ItemForm
           categoryId={categoryId}
