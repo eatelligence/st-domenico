@@ -6,6 +6,7 @@ import Specials from '@/components/sections/Specials'
 import BookingWidget from '@/components/sections/BookingWidget'
 import Menu from '@/components/sections/Menu'
 import Gallery from '@/components/sections/Gallery'
+import FAQ from '@/components/sections/FAQ'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/sections/Footer'
 
@@ -20,6 +21,7 @@ export default function Home() {
       <BookingWidget />
       <Menu />
       <Gallery />
+      <FAQ />
       <Contact />
       <Footer />
     </main>

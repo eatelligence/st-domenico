@@ -90,8 +90,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 1.3 }}
           className="font-inter text-cream/75 text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed"
         >
-          Handcrafted Neapolitan pizza made with imported Italian flour, San Marzano tomatoes,
-          and fior di latte — just as it was meant to be.
+          Richmond Melbourne&apos;s home of authentic Neapolitan pizza — wood-fired, hand-stretched,
+          made with imported San Marzano tomatoes and fior di latte. Open Tuesday to Sunday from 4:30pm. BYO wine.
         </motion.p>
 
         {/* CTAs */}

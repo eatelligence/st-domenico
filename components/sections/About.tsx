@@ -88,17 +88,17 @@ export default function About() {
             <ScrollReveal direction="right" delay={0.3}>
               <div className="space-y-4 font-inter text-charcoal/70 text-[17px] leading-relaxed mb-10">
                 <p>
-                  St Domenico was born from a simple but profound belief: that the finest pizza
-                  in the world should be available to Melbourne. For over 15 years, our kitchen
-                  has been driven by an uncompromising passion for authentic Neapolitan craft —
-                  every dough ball hand-stretched, every sauce made from Italian tomatoes, every
-                  pizza fired in our wood-burning forno.
+                  St Domenico is Richmond Melbourne&apos;s home of authentic Neapolitan pizza. Since
+                  2015, our kitchen has been driven by one belief: that the world&apos;s finest pizza
+                  deserves to be made properly. Every dough ball is hand-stretched, every sauce
+                  built on imported San Marzano tomatoes, every pizza fired in our wood-burning
+                  forno at 450°C — the only way to achieve that signature charred, airy crust.
                 </p>
                 <p>
-                  Nestled on Bridge Road in the heart of Richmond, our dining room welcomes you
-                  with the warmth of a true Italian trattoria. Whether you're settling in for a
-                  long evening with a BYO bottle, catching a family meal on the terrace, or
-                  celebrating with friends — this is your table.
+                  Located on Bridge Road in Richmond, we&apos;re your neighbourhood Italian restaurant
+                  for relaxed weeknight dinners, long weekend feasts, and everything in between.
+                  BYO wine with no corkage fee, indoor and outdoor dining, and a menu that
+                  covers the full Italian table — from antipasto to dolci.
                 </p>
               </div>
             </ScrollReveal>

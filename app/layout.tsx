@@ -6,23 +6,25 @@ import CustomCursor from '@/components/ui/CustomCursor'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://stdomenicopizzabar.com'),
-  title: 'St Domenico Pizza Bar | Authentic Neapolitan Pizza in Richmond, Melbourne',
+  title: 'Best Neapolitan Pizza in Richmond Melbourne | St Domenico Pizza Bar',
   description:
-    'Experience the authentic taste of Naples at St Domenico Pizza Bar in Richmond. Award-winning Neapolitan pizza, handcrafted with imported Italian ingredients. Book your table today.',
+    'St Domenico is Richmond Melbourne\'s home of authentic Neapolitan pizza. Wood-fired, hand-stretched dough, San Marzano tomatoes, imported fior di latte. Open Tue–Sun 4:30pm. BYO wine. Book online.',
   keywords: [
-    'St Domenico',
-    'pizza bar',
-    'Richmond Melbourne',
-    'Neapolitan pizza',
-    'Italian restaurant',
-    'pizza Richmond',
-    'authentic Italian',
-    'pizza Melbourne',
+    'Neapolitan pizza Richmond Melbourne',
+    'best pizza Richmond Melbourne',
+    'St Domenico pizza bar',
+    'Italian restaurant Richmond',
+    'wood fired pizza Melbourne',
+    'pizza bar Richmond Melbourne',
+    'BYO pizza Richmond',
+    'authentic Neapolitan pizza Melbourne',
+    'pizza Bridge Road Richmond',
+    'gluten free pizza Richmond',
   ],
   authors: [{ name: 'St Domenico Pizza Bar' }],
   openGraph: {
-    title: 'St Domenico Pizza Bar | Richmond, Melbourne',
-    description: 'Authentic Neapolitan pizza in the heart of Richmond. Book your table today.',
+    title: 'Best Neapolitan Pizza in Richmond Melbourne | St Domenico Pizza Bar',
+    description: 'Wood-fired Neapolitan pizza in Richmond, Melbourne. Hand-stretched dough, San Marzano tomatoes, imported fior di latte. BYO wine. Open Tue–Sun. Book online.',
     url: 'https://stdomenicopizzabar.com',
     siteName: 'St Domenico Pizza Bar',
     locale: 'en_AU',
@@ -38,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'St Domenico Pizza Bar | Richmond, Melbourne',
-    description: 'Authentic Neapolitan pizza in the heart of Richmond.',
+    title: 'Best Neapolitan Pizza in Richmond Melbourne | St Domenico Pizza Bar',
+    description: 'Wood-fired Neapolitan pizza in Richmond, Melbourne. BYO wine. Open Tue–Sun.',
     images: ['/images/og-image.jpg'],
   },
   robots: {
