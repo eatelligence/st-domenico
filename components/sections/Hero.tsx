@@ -23,6 +23,7 @@ export default function Hero() {
             alt="St Domenico — authentic Neapolitan pizzas, pasta and Italian drinks on a rustic table"
             fill
             priority
+            quality={55}
             className="object-cover object-center"
             sizes="100vw"
           />
