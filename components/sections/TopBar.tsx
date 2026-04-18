@@ -1,37 +1,41 @@
 'use client'
 
-import { useState } from 'react'
 import { ChevronRight, X } from 'lucide-react'
 
-export default function TopBar() {
-  const [visible, setVisible] = useState(true)
+const MSG = '🍰  Free Nutella Calzone after dinner Tue – Thu  ·  Book Now  ›'
 
-  if (!visible) return null
+interface TopBarProps {
+  onDismiss?: () => void
+}
 
+export default function TopBar({ onDismiss }: TopBarProps) {
   return (
-    <div className="bg-terracotta text-cream relative z-50">
-      <div className="max-w-7xl mx-auto px-4 pr-10 py-2 flex items-center justify-center gap-2 text-center">
-        <span className="text-sm shrink-0">🍰</span>
-        <p className="text-[11px] sm:text-sm font-inter tracking-wide leading-snug">
-          <strong className="font-semibold">Free Nutella Calzone</strong>{' '}
-          after dinner <strong className="font-semibold">Tue – Thu</strong>
-        </p>
-        <a
-          href="#bookings"
-          className="hidden sm:flex items-center gap-0.5 text-gold-light hover:text-gold transition-colors text-sm font-semibold whitespace-nowrap group shrink-0"
-          aria-label="Book now"
-        >
-          Book Now
-          <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
-        </a>
+    <div className="bg-terracotta text-cream relative overflow-hidden" style={{ height: '36px' }}>
+      {/* Marquee track — two copies side-by-side so the loop is seamless */}
+      <div className="flex items-center h-full">
+        <div className="flex whitespace-nowrap animate-marquee">
+          {/* Repeat the message many times so there are no gaps regardless of screen width */}
+          {Array.from({ length: 6 }).map((_, i) => (
+            <a
+              key={i}
+              href="#bookings"
+              className="inline-flex items-center gap-2 px-12 text-[11px] sm:text-xs font-inter tracking-wide hover:text-gold-light transition-colors"
+              aria-label="Book now — Free Nutella Calzone offer"
+            >
+              <span>{MSG}</span>
+              <ChevronRight size={11} className="opacity-70 shrink-0" />
+            </a>
+          ))}
+        </div>
       </div>
-      {/* 44×44 dismiss touch target */}
+
+      {/* Dismiss — sits above the marquee */}
       <button
-        onClick={() => setVisible(false)}
-        className="absolute right-0 top-0 bottom-0 w-11 flex items-center justify-center text-cream/60 hover:text-cream transition-colors"
+        onClick={onDismiss}
+        className="absolute right-0 top-0 bottom-0 w-10 flex items-center justify-center text-cream/60 hover:text-cream transition-colors bg-terracotta z-10"
         aria-label="Close promotional bar"
       >
-        <X size={13} />
+        <X size={12} />
       </button>
     </div>
   )

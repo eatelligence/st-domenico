@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic'
-import TopBar from '@/components/sections/TopBar'
-import Navbar from '@/components/sections/Navbar'
+import StickyHeader from '@/components/sections/StickyHeader'
 import Hero from '@/components/sections/Hero'
 import About from '@/components/sections/About'
 import Specials from '@/components/sections/Specials'
@@ -17,8 +16,7 @@ const MobileCTA = dynamic(() => import('@/components/ui/MobileCTA'))
 export default function Home() {
   return (
     <main className="relative has-mobile-cta">
-      <TopBar />
-      <Navbar />
+      <StickyHeader />
       <Hero />
       <About />
       <Specials />

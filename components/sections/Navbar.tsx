@@ -31,7 +31,7 @@ export default function Navbar() {
     <>
       <nav
         className={cn(
-          'fixed top-0 left-0 right-0 z-40 transition-all duration-500',
+          'w-full transition-all duration-500',
           scrolled
             ? 'navbar-blur bg-cream/90 shadow-sm border-b border-gold/10 py-2 lg:py-3'
             : 'bg-transparent py-3 lg:py-5'
@@ -40,13 +40,9 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-          {/* Logo */}
-          <a
-            href="#"
-            className="flex flex-col items-center group"
-            aria-label="St Domenico — Home"
-          >
-            <LogoSVG scrolled={scrolled} />
+          {/* Logo — HTML text so next/font CSS classes always apply correctly */}
+          <a href="#" className="group select-none" aria-label="St Domenico — Home">
+            <Logo scrolled={scrolled} />
           </a>
 
           {/* Desktop nav */}
@@ -81,7 +77,7 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile hamburger — 44×44 touch target */}
+          {/* Mobile hamburger */}
           <button
             className={cn(
               'lg:hidden flex items-center justify-center w-11 h-11 transition-colors rounded',
@@ -103,7 +99,6 @@ export default function Navbar() {
           mobileOpen ? 'visible' : 'invisible'
         )}
       >
-        {/* Backdrop */}
         <div
           className={cn(
             'absolute inset-0 bg-charcoal/80 backdrop-blur-sm transition-opacity duration-500',
@@ -111,8 +106,6 @@ export default function Navbar() {
           )}
           onClick={() => setMobileOpen(false)}
         />
-
-        {/* Drawer — uses 100dvh so it fills correctly on iOS Safari */}
         <div
           className={cn(
             'absolute right-0 top-0 w-4/5 max-w-xs bg-charcoal flex flex-col transition-transform duration-500 ease-out',
@@ -122,7 +115,6 @@ export default function Navbar() {
         >
           <div className="flex justify-between items-center px-6 py-5 border-b border-gold/10">
             <span className="font-playfair text-gold text-lg italic">Menu</span>
-            {/* 44×44 close touch target */}
             <button
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center w-11 h-11 text-cream/60 hover:text-cream transition-colors -mr-2"
@@ -131,7 +123,6 @@ export default function Navbar() {
               <X size={20} />
             </button>
           </div>
-
           <nav className="flex-1 flex flex-col justify-center px-8 gap-5">
             {navLinks.map((link, i) => (
               <a
@@ -145,7 +136,6 @@ export default function Navbar() {
               </a>
             ))}
           </nav>
-
           <div
             className="px-8 pb-8 pt-6 border-t border-gold/10"
             style={{ paddingBottom: 'calc(2rem + env(safe-area-inset-bottom))' }}
@@ -167,59 +157,22 @@ export default function Navbar() {
   )
 }
 
-function LogoSVG({ scrolled }: { scrolled: boolean }) {
-  const textColor = scrolled ? '#1A1512' : '#F5EFE4'
-  const goldColor = '#C9A96E'
-
+function Logo({ scrolled }: { scrolled: boolean }) {
+  const textColor = scrolled ? 'text-charcoal' : 'text-cream'
   return (
-    <svg
-      width="130"
-      height="42"
-      viewBox="0 0 160 52"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="St Domenico logo"
-      className="w-[120px] sm:w-[140px] lg:w-[160px] h-auto"
-    >
-      {/* Top ornament line */}
-      <line x1="10" y1="8" x2="150" y2="8" stroke={goldColor} strokeWidth="0.5" opacity="0.6" />
-
-      {/* ST DOMENICO */}
-      <text
-        x="80"
-        y="30"
-        textAnchor="middle"
-        fontFamily="'Bebas Neue', sans-serif"
-        fontSize="22"
-        letterSpacing="5"
-        fill={textColor}
-        style={{ transition: 'fill 0.3s ease' }}
-      >
+    <div className="flex flex-col items-center w-28 sm:w-32 lg:w-36">
+      {/* Top rule */}
+      <div className="w-full h-px bg-gold/60 mb-[3px]" />
+      {/* Brand name — uses CSS font class, never clips like SVG text */}
+      <span className={cn('font-bebas tracking-[0.22em] text-[17px] sm:text-[18px] lg:text-[20px] leading-none transition-colors duration-300', textColor)}>
         ST DOMENICO
-      </text>
-
-      {/* EST badge */}
-      <text
-        x="80"
-        y="42"
-        textAnchor="middle"
-        fontFamily="'Inter', sans-serif"
-        fontSize="7"
-        letterSpacing="4"
-        fill={goldColor}
-        opacity="0.9"
-      >
+      </span>
+      {/* Tagline */}
+      <span className="font-inter text-[6.5px] sm:text-[7px] tracking-[0.32em] uppercase leading-none mt-[3px]" style={{ color: '#C9A96E' }}>
         EST. 2015 · RICHMOND
-      </text>
-
-      {/* Bottom ornament line */}
-      <line x1="10" y1="47" x2="150" y2="47" stroke={goldColor} strokeWidth="0.5" opacity="0.6" />
-
-      {/* Dots */}
-      <circle cx="5" cy="8" r="1.5" fill={goldColor} opacity="0.5" />
-      <circle cx="155" cy="8" r="1.5" fill={goldColor} opacity="0.5" />
-      <circle cx="5" cy="47" r="1.5" fill={goldColor} opacity="0.5" />
-      <circle cx="155" cy="47" r="1.5" fill={goldColor} opacity="0.5" />
-    </svg>
+      </span>
+      {/* Bottom rule */}
+      <div className="w-full h-px bg-gold/60 mt-[3px]" />
+    </div>
   )
 }
