@@ -2,6 +2,7 @@
 
 import { ChevronDown, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+import { restaurantInfo } from '@/lib/data/hours'
 
 const anim = (delay: number, duration = 0.6, type: 'up' | 'fade' = 'up') => ({
   animation: `${type === 'up' ? 'fadeInUp' : 'fadeIn'} ${duration}s ease-out both`,
@@ -98,7 +99,7 @@ export default function Hero() {
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </a>
           <a
-            href="https://www.menulog.com.au/restaurants-st-domenico-pizza-bar"
+            href={restaurantInfo.orderPickup}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full xs:w-auto font-bebas tracking-[0.2em] text-base border border-cream/40 text-cream px-8 py-4 hover:bg-cream/10 hover:border-cream transition-all duration-300 text-center min-h-[52px] flex items-center justify-center"
@@ -106,7 +107,7 @@ export default function Hero() {
             Order Pick-up
           </a>
           <a
-            href="https://www.ubereats.com/au/store/st-domenico-pizza-bar"
+            href={restaurantInfo.orderDelivery}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full xs:w-auto font-bebas tracking-[0.2em] text-base border border-cream/40 text-cream px-8 py-4 hover:bg-cream/10 hover:border-cream transition-all duration-300 text-center min-h-[52px] flex items-center justify-center"

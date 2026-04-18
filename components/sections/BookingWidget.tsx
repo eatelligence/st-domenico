@@ -75,21 +75,21 @@ const accordionItems = [
         <p className="mt-2">
           Order via{' '}
           <a
-            href="https://www.ubereats.com"
+            href="https://stdomenico.retweb.zt.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-terracotta hover:underline"
+          >
+            Pick-up
+          </a>{' '}
+          or{' '}
+          <a
+            href="https://www.ubereats.com/au/store/st-domenico-pizza-bar/C_-PRbYYTc-chxgKwiOWhw?diningMode=DELIVERY&pl=JTdCJTIyYWRkcmVzcyUyMiUzQSUyMjQyOCUyMEJyaWRnZSUyMFJkJTIyJTJDJTIycmVmZXJlbmNlJTIyJTNBJTIyQ2hJSkFlZ3hjRmhDMW1vUi11QlhlMk9TRng4JTIyJTJDJTIycmVmZXJlbmNlVHlwZSUyMiUzQSUyMmdvb2dsZV9wbGFjZXMlMjIlMkMlMjJsYXRpdHVkZSUyMiUzQS0zNy44MTkzOTMlMkMlMjJsb25naXR1ZGUlMjIlM0ExNDUuMDA1ODkyMDAwMDAwMDIlN0Q%3D&ps=1&sc=SEARCH_SUGGESTION"
             target="_blank"
             rel="noopener noreferrer"
             className="text-terracotta hover:underline"
           >
             Uber Eats
-          </a>{' '}
-          or{' '}
-          <a
-            href="https://www.menulog.com.au"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-terracotta hover:underline"
-          >
-            Menulog
           </a>
           .
         </p>
