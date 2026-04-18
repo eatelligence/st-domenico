@@ -36,17 +36,19 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Custom cursor */
+/* Custom cursor — transform-only for GPU compositing, no left/top transitions */
 .cursor-dot {
   width: 8px;
   height: 8px;
   background-color: var(--terracotta);
   border-radius: 50%;
   position: fixed;
+  left: 0;
+  top: 0;
   pointer-events: none;
   z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background-color 0.2s;
+  will-change: transform;
+  transition: scale 0.2s, background-color 0.2s;
 }
 
 .cursor-ring {
@@ -55,23 +57,23 @@ body {
   border: 1.5px solid var(--gold);
   border-radius: 50%;
   position: fixed;
+  left: 0;
+  top: 0;
   pointer-events: none;
   z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+  transition: scale 0.3s ease, border-color 0.3s ease;
 }
 
 body:has(a:hover) .cursor-dot,
 body:has(button:hover) .cursor-dot {
-  width: 12px;
-  height: 12px;
+  scale: 1.5;
   background-color: var(--gold);
 }
 
 body:has(a:hover) .cursor-ring,
 body:has(button:hover) .cursor-ring {
-  width: 48px;
-  height: 48px;
+  scale: 1.5;
   border-color: var(--terracotta);
 }
 
@@ -178,15 +180,6 @@ body:has(button:hover) .cursor-ring {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Image reveal mask */
-.image-reveal {
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-}
-.image-reveal.revealed {
-  clip-path: inset(0 0% 0 0);
-}
-
 /* Backdrop blur navbar — disabled on mobile (too expensive, causes jank) */
 .navbar-blur {
   background-color: rgba(245, 239, 228, 0.96);
@@ -231,16 +224,6 @@ body:has(button:hover) .cursor-ring {
 }
 .booking-input::placeholder {
   color: rgba(26, 21, 18, 0.4);
-}
-
-/* Accordion */
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.accordion-content.open {
-  max-height: 500px;
 }
 
 /* Tab active */

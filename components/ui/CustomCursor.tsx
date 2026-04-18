@@ -19,20 +19,19 @@ export default function CustomCursor() {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX
       mouseY = e.clientY
-      dot.style.left = `${mouseX}px`
-      dot.style.top = `${mouseY}px`
+      // GPU-composited: transform instead of left/top (no layout, no paint)
+      dot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`
     }
 
     let rafId: number
     const animate = () => {
       ringX += (mouseX - ringX) * 0.12
       ringY += (mouseY - ringY) * 0.12
-      ring.style.left = `${ringX}px`
-      ring.style.top = `${ringY}px`
+      ring.style.transform = `translate(${ringX - 16}px, ${ringY - 16}px)`
       rafId = requestAnimationFrame(animate)
     }
 
-    document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mousemove', handleMouseMove, { passive: true })
     rafId = requestAnimationFrame(animate)
 
     return () => {

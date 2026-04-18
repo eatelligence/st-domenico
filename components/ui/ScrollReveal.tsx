@@ -13,7 +13,6 @@ interface ScrollRevealProps {
 const offsets: Record<string, string> = {
   up:    'translateY(32px)',
   down:  'translateY(-32px)',
-  // left/right use Y-only to avoid any horizontal overflow
   left:  'translateY(20px)',
   right: 'translateY(20px)',
   none:  'translateY(0)',
@@ -33,21 +32,42 @@ export default function ScrollReveal({
     const el = ref.current
     if (!el) return
 
-    // Immediately visible if already in viewport on mount
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          startTransition(() => setVisible(true))
-          if (once) observer.disconnect()
-        } else if (!once) {
-          startTransition(() => setVisible(false))
-        }
-      },
-      { threshold: 0.08, rootMargin: '-20px 0px' }
-    )
+    // Already in viewport on mount — show immediately, skip animation entirely
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight * 0.95) {
+      setVisible(true)
+      return
+    }
 
-    observer.observe(el)
-    return () => observer.disconnect()
+    let cleanup: (() => void) | undefined
+
+    const setup = () => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            startTransition(() => setVisible(true))
+            if (once) observer.disconnect()
+          } else if (!once) {
+            startTransition(() => setVisible(false))
+          }
+        },
+        { threshold: 0.08, rootMargin: '-20px 0px' }
+      )
+      observer.observe(el)
+      cleanup = () => observer.disconnect()
+    }
+
+    // Defer observer creation to idle time — avoids blocking the initial hydration burst
+    if ('requestIdleCallback' in window) {
+      const id = (window as typeof window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(setup, { timeout: 500 })
+      return () => {
+        ;(window as typeof window & { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(id)
+        cleanup?.()
+      }
+    }
+
+    setup()
+    return () => cleanup?.()
   }, [once])
 
   return (
@@ -57,7 +77,6 @@ export default function ScrollReveal({
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : offsets[direction],
-        // CSS transition — zero JS during animation, GPU-composited
         transition: `opacity 0.55s ease ${delay}s, transform 0.55s ease ${delay}s`,
       }}
     >

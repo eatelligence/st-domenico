@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Accordion from '@/components/ui/Accordion'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
@@ -99,27 +99,38 @@ const accordionItems = [
 ]
 
 export default function BookingWidget() {
+  const sectionRef = useRef<HTMLElement>(null)
+
   useEffect(() => {
-    // Avoid injecting the script more than once
-    if (document.getElementById('oddle-widget-script')) return
+    const section = sectionRef.current
+    if (!section) return
 
-    const script = document.createElement('script')
-    script.id = 'oddle-widget-script'
-    script.type = 'text/javascript'
-    script.src =
-      'https://reserve.oddle.me/js/widget.js?type=standard&brandShortName=stdomenico&utm_source=corp-website'
-    script.async = true
-    document.body.appendChild(script)
+    // Defer Oddle script until the booking section is near the viewport.
+    // Loading it on mount blocks the main thread during initial page load.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        observer.disconnect()
 
-    return () => {
-      // Clean up on unmount so HMR re-injects cleanly in dev
-      const existing = document.getElementById('oddle-widget-script')
-      if (existing) existing.remove()
-    }
+        if (document.getElementById('oddle-widget-script')) return
+        const script = document.createElement('script')
+        script.id = 'oddle-widget-script'
+        script.type = 'text/javascript'
+        script.src =
+          'https://reserve.oddle.me/js/widget.js?type=standard&brandShortName=stdomenico&utm_source=corp-website'
+        script.async = true
+        document.body.appendChild(script)
+      },
+      { rootMargin: '300px' }
+    )
+
+    observer.observe(section)
+    return () => observer.disconnect()
   }, [])
 
   return (
     <section
+      ref={sectionRef}
       id="bookings"
       className="py-16 sm:py-24 lg:py-36 bg-cream grain-overlay relative"
       aria-labelledby="booking-heading"
@@ -155,21 +166,16 @@ export default function BookingWidget() {
           </ScrollReveal>
         </div>
 
-        {/* Oddle booking widget — no overflow-hidden so the iframe renders fully */}
         <ScrollReveal delay={0.3}>
           <div className="bg-white border border-gold/20 shadow-warm mb-10 relative">
-            {/* Corner ornaments — pointer-events-none so they never block the widget */}
             <div className="absolute top-4 left-4 w-6 h-6 border-l border-t border-gold/30 z-10 pointer-events-none" />
             <div className="absolute top-4 right-4 w-6 h-6 border-r border-t border-gold/30 z-10 pointer-events-none" />
             <div className="absolute bottom-4 left-4 w-6 h-6 border-l border-b border-gold/30 z-10 pointer-events-none" />
             <div className="absolute bottom-4 right-4 w-6 h-6 border-r border-b border-gold/30 z-10 pointer-events-none" />
-
-            {/* min-h ensures container is visible while widget loads */}
             <div id="reserve-container" className="min-h-[400px] w-full" />
           </div>
         </ScrollReveal>
 
-        {/* Hours reminder */}
         <ScrollReveal delay={0.35}>
           <div className="text-center mb-10">
             <p className="font-inter text-charcoal/50 text-sm">
@@ -179,7 +185,6 @@ export default function BookingWidget() {
           </div>
         </ScrollReveal>
 
-        {/* Accordion — reduced horizontal padding on mobile */}
         <ScrollReveal delay={0.4}>
           <div className="border border-gold/20 bg-white/50 px-4 sm:px-8 py-4">
             <Accordion items={accordionItems} />

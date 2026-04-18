@@ -37,13 +37,22 @@ export default function Accordion({ items, className }: AccordionProps) {
               )}
             />
           </button>
+          {/* Grid trick: GPU-composited expand/collapse — no layout reflow unlike max-height */}
           <div
-            className={cn(
-              'overflow-hidden transition-all duration-400 ease-in-out',
-              openIndex === i ? 'max-h-[600px] opacity-100 mt-4' : 'max-h-0 opacity-0'
-            )}
+            className="grid transition-[grid-template-rows] duration-300 ease-in-out"
+            style={{ gridTemplateRows: openIndex === i ? '1fr' : '0fr' }}
           >
-            <div className="text-charcoal/70 text-sm leading-relaxed">{item.content}</div>
+            <div className="overflow-hidden">
+              <div
+                className="pt-4 text-charcoal/70 text-sm leading-relaxed"
+                style={{
+                  opacity: openIndex === i ? 1 : 0,
+                  transition: 'opacity 0.25s ease',
+                }}
+              >
+                {item.content}
+              </div>
+            </div>
           </div>
         </div>
       ))}

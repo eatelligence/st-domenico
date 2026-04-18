@@ -133,6 +133,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        {/* Preconnect to booking widget origin — saves ~340ms LCP */}
+        <link rel="preconnect" href="https://reserve.oddle.me" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
