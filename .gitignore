@@ -20,3 +20,11 @@ Thumbs.db
 
 # Vercel
 .vercel
+
+# Business & marketing docs, SEO audit exports (not part of the app)
+/SEO/
+/Proposal-*.pdf
+/download.pdf
+/proposal-*.md
+/proposal-*.html
+/stdomenicopizzabar.com-*.json
