@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://stdomenicopizzabar.com'),
   title: 'Best Neapolitan Pizza in Richmond Melbourne | St Domenico Pizza Bar',
   description:
-    'St Domenico is Richmond Melbourne\'s home of authentic Neapolitan pizza. Wood-fired, hand-stretched dough, San Marzano tomatoes, imported fior di latte. Open Tue–Sun 4:30pm. BYO wine. Book online.',
+    'Authentic wood-fired Neapolitan pizza in Richmond, Melbourne. San Marzano tomatoes, imported fior di latte, BYO wine. Open Tue–Sun. Book online.',
   keywords: [
     'Neapolitan pizza Richmond Melbourne',
     'best pizza Richmond Melbourne',
@@ -119,8 +119,8 @@ const jsonLd = {
   ],
   hasMap: restaurantInfo.googleMaps,
   sameAs: [restaurantInfo.instagram, restaurantInfo.facebook],
-  menu: 'https://stdomenicopizzabar.com/#menu',
-  reservations: restaurantInfo.bookingUrl,
+  hasMenu: 'https://stdomenicopizzabar.com/#menu',
+  acceptsReservations: restaurantInfo.bookingUrl,
   image: ['/images/restaurant-1.jpg', '/images/pizza-1.jpg', '/images/interior-1.jpg'],
   aggregateRating: {
     '@type': 'AggregateRating',
