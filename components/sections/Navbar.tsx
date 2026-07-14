@@ -41,7 +41,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo — HTML text so next/font CSS classes always apply correctly */}
-          <a href="#" className="group select-none" aria-label="St Domenico — Home">
+          <a href="/" className="group select-none" aria-label="St Domenico — Home">
             <Logo scrolled={scrolled} />
           </a>
 

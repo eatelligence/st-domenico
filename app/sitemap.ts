@@ -1,36 +1,16 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Only include canonical, indexable URLs. In-page anchors (#about, #menu,
+  // #bookings, #contact) all canonicalise to the homepage, so listing them here
+  // creates conflicting canonicalisation signals (Ahrefs: "Non-canonical page
+  // in sitemap"). Search engines ignore URL fragments anyway.
   return [
     {
       url: 'https://stdomenicopizzabar.com',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
-    },
-    {
-      url: 'https://stdomenicopizzabar.com/#about',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://stdomenicopizzabar.com/#menu',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://stdomenicopizzabar.com/#bookings',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: 'https://stdomenicopizzabar.com/#contact',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
     },
   ]
 }
