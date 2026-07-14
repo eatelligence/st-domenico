@@ -19,21 +19,21 @@ export default function Footer() {
             {/* Logo */}
             <div className="mb-6">
               <svg
-                width="140"
-                height="48"
-                viewBox="0 0 160 52"
+                width="176"
+                height="46"
+                viewBox="0 0 200 52"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-label="St Domenico"
               >
-                <line x1="5" y1="8" x2="155" y2="8" stroke="#C9A96E" strokeWidth="0.5" opacity="0.5" />
-                <text x="80" y="30" textAnchor="middle" fontFamily="'Bebas Neue', sans-serif" fontSize="22" letterSpacing="5" fill="#F5EFE4">ST DOMENICO</text>
-                <text x="80" y="42" textAnchor="middle" fontFamily="'Inter', sans-serif" fontSize="7" letterSpacing="4" fill="#C9A96E" opacity="0.8">EST. 2015 · RICHMOND</text>
-                <line x1="5" y1="47" x2="155" y2="47" stroke="#C9A96E" strokeWidth="0.5" opacity="0.5" />
-                <circle cx="5" cy="8" r="1.2" fill="#C9A96E" opacity="0.4" />
-                <circle cx="155" cy="8" r="1.2" fill="#C9A96E" opacity="0.4" />
-                <circle cx="5" cy="47" r="1.2" fill="#C9A96E" opacity="0.4" />
-                <circle cx="155" cy="47" r="1.2" fill="#C9A96E" opacity="0.4" />
+                <line x1="15" y1="8" x2="185" y2="8" stroke="#C9A96E" strokeWidth="0.5" opacity="0.5" />
+                <text x="100" y="30" textAnchor="middle" fontFamily="'Bebas Neue', sans-serif" fontSize="22" letterSpacing="4" fill="#F5EFE4">ST DOMENICO</text>
+                <text x="100" y="42" textAnchor="middle" fontFamily="'Inter', sans-serif" fontSize="7" letterSpacing="3.5" fill="#C9A96E" opacity="0.85">EST. 2015 · RICHMOND</text>
+                <line x1="15" y1="47" x2="185" y2="47" stroke="#C9A96E" strokeWidth="0.5" opacity="0.5" />
+                <circle cx="15" cy="8" r="1.2" fill="#C9A96E" opacity="0.4" />
+                <circle cx="185" cy="8" r="1.2" fill="#C9A96E" opacity="0.4" />
+                <circle cx="15" cy="47" r="1.2" fill="#C9A96E" opacity="0.4" />
+                <circle cx="185" cy="47" r="1.2" fill="#C9A96E" opacity="0.4" />
               </svg>
             </div>
             <div className="space-y-2 text-cream/50 text-sm font-inter">
@@ -153,10 +153,30 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-gold/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        {/* Bottom bar — all credits on a single line */}
+        <div className="border-t border-gold/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-6 text-center">
           <p className="font-inter text-cream/30 text-xs">
             © {currentYear} St Domenico Pizza Bar. All rights reserved.
+          </p>
+          <p className="font-inter text-cream/25 text-xs">
+            Proudly powered by{' '}
+            <a
+              href="https://www.eatelligence.au/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-cream/45 transition-colors underline underline-offset-2"
+            >
+              Eatelligence
+            </a>
+            {' '}·{' '}
+            <a
+              href="https://www.salvorincione.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-cream/45 transition-colors underline underline-offset-2"
+            >
+              Salvo Rincione
+            </a>
           </p>
           <div className="flex gap-6">
             <a href="#" className="font-inter text-cream/30 hover:text-cream/50 text-xs transition-colors">
@@ -166,30 +186,6 @@ export default function Footer() {
               Terms of Service
             </a>
           </div>
-        </div>
-
-        {/* Credit */}
-        <div className="pt-4 text-center">
-          <p className="font-inter text-cream/20 text-[10px]">
-            Proudly powered by{' '}
-            <a
-              href="https://www.eatelligence.au/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-cream/40 transition-colors underline underline-offset-2"
-            >
-              Eatelligence
-            </a>
-            {' '}·{' '}
-            <a
-              href="https://www.salvorincione.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-cream/40 transition-colors underline underline-offset-2"
-            >
-              Salvo Rincione
-            </a>
-          </p>
         </div>
       </div>
     </footer>
