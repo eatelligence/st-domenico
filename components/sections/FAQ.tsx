@@ -19,7 +19,7 @@ const faqs = [
   {
     question: 'Can I bring my own wine to St Domenico?',
     answer:
-      'Yes — St Domenico is BYO wine with no corkage fee. You are welcome to bring your favourite bottle of wine to enjoy with your meal. We also offer a curated selection of Italian and Australian wines by the glass if you prefer to order from our drinks list.',
+      'Yes — St Domenico is BYO wine. You are welcome to bring your favourite bottle of wine to enjoy with your meal. We also offer a curated selection of Italian and Australian wines by the glass if you prefer to order from our drinks list.',
   },
   {
     question: 'How do I book a table at St Domenico in Richmond?',

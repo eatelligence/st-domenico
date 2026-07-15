@@ -93,7 +93,7 @@ export default function About() {
                 <p>
                   Located on Bridge Road in Richmond, we&apos;re your neighbourhood Italian restaurant
                   for relaxed weeknight dinners, long weekend feasts, and everything in between.
-                  BYO wine with no corkage fee, indoor and outdoor dining, and a menu that
+                  BYO wine, indoor and outdoor dining, and a menu that
                   covers the full Italian table — from antipasto to dolci.
                 </p>
               </div>
@@ -130,7 +130,7 @@ export default function About() {
               <div className="grid grid-cols-2 gap-4">
                 {[
                   'Indoor & outdoor dining',
-                  'BYO wine (no corkage)',
+                  'BYO wine',
                   'Community focused',
                   'Italian imported ingredients',
                 ].map((feature) => (

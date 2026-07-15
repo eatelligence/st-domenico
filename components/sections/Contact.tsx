@@ -194,7 +194,7 @@ export default function Contact() {
               <div className="border border-gold/10 bg-cream/5 p-5">
                 <p className="font-playfair italic text-gold text-lg mb-1">BYO Wine Welcome</p>
                 <p className="font-inter text-cream/50 text-sm leading-relaxed">
-                  Bring your favourite bottle — no corkage fee. We also offer a curated selection
+                  Bring your favourite bottle. We also offer a curated selection
                   of Italian wines by the glass.
                 </p>
               </div>

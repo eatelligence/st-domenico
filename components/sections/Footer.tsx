@@ -148,7 +148,7 @@ export default function Footer() {
 
             <div className="mt-8 p-4 border border-gold/10 bg-cream/5">
               <p className="font-playfair italic text-gold/80 text-sm mb-1">BYO Wine</p>
-              <p className="font-inter text-cream/40 text-xs">No corkage fee · Enjoy your favourite bottle</p>
+              <p className="font-inter text-cream/40 text-xs">Enjoy your favourite bottle</p>
             </div>
           </div>
         </div>
