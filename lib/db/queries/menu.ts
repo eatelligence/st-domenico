@@ -1,48 +1,48 @@
 import { unstable_cache } from 'next/cache'
-import { db } from '../client'
+import { createAnonClient } from '@/lib/supabase/anon'
 import type { MenuCategory, MenuItem } from '@/lib/data/menu'
 
-export const getMenuCategories = unstable_cache(
-  async (): Promise<MenuCategory[]> => {
-    const catsResult = await db.execute(
-      `SELECT id, label, emoji FROM menu_categories
-       WHERE is_active = 1 ORDER BY sort_order ASC`
-    )
+async function fetchMenu(): Promise<MenuCategory[]> {
+  const supabase = createAnonClient()
 
-    const categories: MenuCategory[] = []
+  const { data: cats } = await supabase
+    .from('menu_categories')
+    .select('id, label, emoji')
+    .eq('is_active', true)
+    .order('sort_order', { ascending: true })
 
-    for (const row of catsResult.rows) {
-      const itemsResult = await db.execute({
-        sql: `SELECT name, description, price, price_gf, is_vegetarian, is_gluten_free,
-                     is_seafood, badge, allergens
-              FROM menu_items
-              WHERE category_id = ? AND is_active = 1
-              ORDER BY sort_order ASC`,
-        args: [row.id as string],
-      })
+  if (!cats || cats.length === 0) return []
 
-      const items: MenuItem[] = itemsResult.rows.map((r) => ({
-        name: r.name as string,
-        description: r.description as string,
-        price: (r.price as string | null) ?? undefined,
-        priceGF: (r.price_gf as string | null) ?? undefined,
-        isVegetarian: r.is_vegetarian === 1,
-        isGlutenFree: r.is_gluten_free === 1,
-        isSeafood: r.is_seafood === 1,
-        badge: (r.badge as string | null) ?? undefined,
-        allergens: (r.allergens as string | null) ?? undefined,
-      }))
+  const categories: MenuCategory[] = []
+  for (const c of cats) {
+    const { data: items } = await supabase
+      .from('menu_items')
+      .select(
+        'name, description, price, price_gf, is_vegetarian, is_gluten_free, is_seafood, badge, allergens'
+      )
+      .eq('category_id', c.id)
+      .eq('is_active', true)
+      .order('sort_order', { ascending: true })
 
-      categories.push({
-        id: row.id as string,
-        label: row.label as string,
-        emoji: row.emoji as string,
-        items,
-      })
-    }
+    const mapped: MenuItem[] = (items ?? []).map((r) => ({
+      name: r.name,
+      description: r.description,
+      price: r.price ?? undefined,
+      priceGF: r.price_gf ?? undefined,
+      isVegetarian: r.is_vegetarian,
+      isGlutenFree: r.is_gluten_free,
+      isSeafood: r.is_seafood,
+      badge: r.badge ?? undefined,
+      allergens: r.allergens ?? undefined,
+    }))
 
-    return categories
-  },
-  ['menu-categories'],
-  { tags: ['menu'], revalidate: 3600 }
-)
+    categories.push({ id: c.id, label: c.label, emoji: c.emoji, items: mapped })
+  }
+
+  return categories
+}
+
+export const getMenuCategories = unstable_cache(fetchMenu, ['menu-categories'], {
+  tags: ['menu'],
+  revalidate: 3600,
+})
