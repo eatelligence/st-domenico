@@ -41,14 +41,13 @@
   - `createAnonClient(): SupabaseClient` from `lib/supabase/anon.ts` — keyless (no cookies) anon client for cached public reads.
   - `updateSession(request): Promise<NextResponse>` from `lib/supabase/middleware.ts`.
 
-- [ ] **Step 1: Install/remove dependencies**
+- [ ] **Step 1: Install new dependencies (do NOT remove the old ones yet)**
 
 Run:
 ```bash
 npm install @supabase/supabase-js @supabase/ssr
-npm uninstall @libsql/client bcryptjs @types/bcryptjs iron-session
 ```
-Expected: installs succeed; `package.json` no longer lists the removed packages.
+Expected: install succeeds. **Do NOT uninstall `@libsql/client`, `bcryptjs`, `@types/bcryptjs`, `iron-session` here** — existing files still import them until Tasks 4–7, and removing them now breaks `npm run build`. They are uninstalled in Task 8 after all their code is gone.
 
 - [ ] **Step 2: Fetch the anon key and write `.env.local`**
 
@@ -1010,6 +1009,11 @@ Expected: no matches. If `lib/db/queries/admin.ts` still shows an unused `import
 git rm lib/db/client.ts lib/db/schema.sql lib/auth/session.ts
 ```
 (If any other match remains, fix that file to use the Supabase equivalents before continuing.)
+
+Then uninstall the now-unused old dependencies (deferred here from Task 1):
+```bash
+npm uninstall @libsql/client bcryptjs @types/bcryptjs iron-session
+```
 
 - [ ] **Step 2: Full build + typecheck**
 
