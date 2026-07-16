@@ -27,14 +27,16 @@ export type AdminCategory = {
 
 export async function getAdminCategories(): Promise<AdminCategory[]> {
   const supabase = await createClient()
-  const { data: cats } = await supabase
+  const { data: cats, error: catsError } = await supabase
     .from('menu_categories')
     .select('id, label, emoji, sort_order, is_active')
     .order('sort_order', { ascending: true })
-  const { data: items } = await supabase
+  if (catsError) console.error('getAdminCategories failed:', catsError)
+  const { data: items, error: itemsError } = await supabase
     .from('menu_items')
     .select('category_id')
     .eq('is_active', true)
+  if (itemsError) console.error('getAdminCategories failed:', itemsError)
 
   const counts = new Map<string, number>()
   for (const i of items ?? []) {
@@ -90,16 +92,18 @@ function rowToItem(r: ItemRow): AdminMenuItem {
 
 export async function getAdminCategoryItems(categoryId: string): Promise<AdminMenuItem[]> {
   const supabase = await createClient()
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('menu_items')
     .select(ITEM_COLS)
     .eq('category_id', categoryId)
     .order('sort_order', { ascending: true })
+  if (error) console.error('getAdminCategoryItems failed:', error)
   return (data ?? []).map((r) => rowToItem(r as ItemRow))
 }
 
 export async function getAdminItem(id: string): Promise<AdminMenuItem | null> {
   const supabase = await createClient()
-  const { data } = await supabase.from('menu_items').select(ITEM_COLS).eq('id', id).maybeSingle()
+  const { data, error } = await supabase.from('menu_items').select(ITEM_COLS).eq('id', id).maybeSingle()
+  if (error) console.error('getAdminItem failed:', error)
   return data ? rowToItem(data as ItemRow) : null
 }

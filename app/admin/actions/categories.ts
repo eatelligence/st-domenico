@@ -58,11 +58,12 @@ export async function updateCategory(id: string, prevState: { error: string }, f
 
 export async function deleteCategory(id: string) {
   const { supabase } = await requireUser()
-  const { count } = await supabase
+  const { count, error: countErr } = await supabase
     .from('menu_items')
     .select('id', { count: 'exact', head: true })
     .eq('category_id', id)
     .eq('is_active', true)
+  if (countErr) return { error: 'Could not check category contents. Try again.' }
   if ((count ?? 0) > 0) {
     return { error: 'Remove all products from this category first.' }
   }
@@ -74,10 +75,15 @@ export async function deleteCategory(id: string) {
 
 export async function reorderCategories(orderedIds: string[]) {
   const { supabase } = await requireUser()
-  await Promise.all(
+  const results = await Promise.all(
     orderedIds.map((id, i) =>
       supabase.from('menu_categories').update({ sort_order: i }).eq('id', id)
     )
   )
+  const failed = results.find((r) => r.error)
+  if (failed) {
+    console.error('reorderCategories failed:', failed.error)
+    return
+  }
   invalidate()
 }

@@ -96,12 +96,14 @@ export async function updateMenuItem(id: string, categoryId: string, prevState: 
 
 export async function deleteMenuItem(id: string, categoryId: string) {
   const { supabase } = await requireUser()
-  await supabase.from('menu_items').update({ is_active: false }).eq('id', id)
+  const { error } = await supabase.from('menu_items').update({ is_active: false }).eq('id', id)
+  if (error) { console.error('deleteMenuItem failed:', error); return }
   invalidate(categoryId)
 }
 
 export async function restoreMenuItem(id: string, categoryId: string) {
   const { supabase } = await requireUser()
-  await supabase.from('menu_items').update({ is_active: true }).eq('id', id)
+  const { error } = await supabase.from('menu_items').update({ is_active: true }).eq('id', id)
+  if (error) { console.error('restoreMenuItem failed:', error); return }
   invalidate(categoryId)
 }

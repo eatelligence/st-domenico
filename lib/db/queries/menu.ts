@@ -5,17 +5,18 @@ import type { MenuCategory, MenuItem } from '@/lib/data/menu'
 async function fetchMenu(): Promise<MenuCategory[]> {
   const supabase = createAnonClient()
 
-  const { data: cats } = await supabase
+  const { data: cats, error: catsError } = await supabase
     .from('menu_categories')
     .select('id, label, emoji')
     .eq('is_active', true)
     .order('sort_order', { ascending: true })
+  if (catsError) console.error('getMenuCategories failed:', catsError)
 
   if (!cats || cats.length === 0) return []
 
   const categories: MenuCategory[] = []
   for (const c of cats) {
-    const { data: items } = await supabase
+    const { data: items, error: itemsError } = await supabase
       .from('menu_items')
       .select(
         'name, description, price, price_gf, is_vegetarian, is_gluten_free, is_seafood, badge, allergens'
@@ -23,6 +24,7 @@ async function fetchMenu(): Promise<MenuCategory[]> {
       .eq('category_id', c.id)
       .eq('is_active', true)
       .order('sort_order', { ascending: true })
+    if (itemsError) console.error('getMenuCategories failed:', itemsError)
 
     const mapped: MenuItem[] = (items ?? []).map((r) => ({
       name: r.name,

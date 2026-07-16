@@ -1,13 +1,8 @@
-import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { requireUser } from '@/lib/supabase/server'
 import AdminNav from '../_components/AdminNav'
 
 export default async function ProtectedLayout({ children }: { children: React.ReactNode }) {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  if (!user) redirect('/admin/login')
+  await requireUser()
 
   return (
     <div className="flex min-h-screen bg-[#F0EBE0]">
