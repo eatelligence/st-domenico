@@ -1,13 +1,8 @@
-import { getSession } from '@/lib/auth/session'
-import { redirect } from 'next/navigation'
 import LoginForm from './_components/LoginForm'
 
 export const metadata = { title: 'Admin — St Domenico' }
 
-export default async function LoginPage() {
-  const session = await getSession()
-  if (session.isAdmin) redirect('/admin/menu')
-
+export default function LoginPage() {
   return (
     <div className="min-h-screen bg-cream flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
