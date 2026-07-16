@@ -178,12 +178,18 @@ export default function Footer() {
               Salvo Rincione
             </a>
           </p>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             <a href="#" className="font-inter text-cream/30 hover:text-cream/50 text-xs transition-colors">
               Privacy Policy
             </a>
             <a href="#" className="font-inter text-cream/30 hover:text-cream/50 text-xs transition-colors">
               Terms of Service
+            </a>
+            <a
+              href="/admin"
+              className="font-bebas tracking-[0.15em] text-[11px] uppercase text-cream/50 border border-gold/25 px-3 py-1.5 hover:text-charcoal hover:bg-gold hover:border-gold transition-all"
+            >
+              Admin
             </a>
           </div>
         </div>
