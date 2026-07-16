@@ -1,3 +1,4 @@
+import { createClient } from '@/lib/supabase/server'
 import { db } from '../client'
 
 export type AdminMenuItem = {
@@ -26,21 +27,28 @@ export type AdminCategory = {
 }
 
 export async function getAdminCategories(): Promise<AdminCategory[]> {
-  const result = await db.execute(`
-    SELECT c.id, c.label, c.emoji, c.sort_order, c.is_active,
-           COUNT(i.id) as item_count
-    FROM menu_categories c
-    LEFT JOIN menu_items i ON i.category_id = c.id AND i.is_active = 1
-    GROUP BY c.id
-    ORDER BY c.sort_order ASC
-  `)
-  return result.rows.map((r) => ({
-    id: r.id as string,
-    label: r.label as string,
-    emoji: r.emoji as string,
-    sortOrder: r.sort_order as number,
-    isActive: r.is_active === 1,
-    itemCount: r.item_count as number,
+  const supabase = await createClient()
+  const { data: cats } = await supabase
+    .from('menu_categories')
+    .select('id, label, emoji, sort_order, is_active')
+    .order('sort_order', { ascending: true })
+  const { data: items } = await supabase
+    .from('menu_items')
+    .select('category_id')
+    .eq('is_active', true)
+
+  const counts = new Map<string, number>()
+  for (const i of items ?? []) {
+    counts.set(i.category_id, (counts.get(i.category_id) ?? 0) + 1)
+  }
+
+  return (cats ?? []).map((c) => ({
+    id: c.id,
+    label: c.label,
+    emoji: c.emoji,
+    sortOrder: c.sort_order,
+    isActive: c.is_active,
+    itemCount: counts.get(c.id) ?? 0,
   }))
 }
 
