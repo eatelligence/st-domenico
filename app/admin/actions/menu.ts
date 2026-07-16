@@ -2,8 +2,7 @@
 
 import { revalidateTag, revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { db } from '@/lib/db/client'
-import { getAdminSession } from '@/lib/auth/session'
+import { requireUser } from '@/lib/supabase/server'
 
 const ItemSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -37,26 +36,31 @@ function invalidate(categoryId: string) {
 }
 
 export async function createMenuItem(categoryId: string, prevState: { error: string }, formData: FormData) {
-  await getAdminSession()
+  const { supabase } = await requireUser()
   try {
     const data = parseForm(formData)
-    const maxOrder = await db.execute({
-      sql: `SELECT COALESCE(MAX(sort_order), -1) as m FROM menu_items WHERE category_id = ?`,
-      args: [categoryId],
+    const { data: maxRow } = await supabase
+      .from('menu_items')
+      .select('sort_order')
+      .eq('category_id', categoryId)
+      .order('sort_order', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+    const sortOrder = (maxRow?.sort_order ?? -1) + 1
+    const { error } = await supabase.from('menu_items').insert({
+      category_id: categoryId,
+      name: data.name,
+      description: data.description,
+      price: data.price ?? null,
+      price_gf: data.priceGF ?? null,
+      is_vegetarian: data.isVegetarian,
+      is_gluten_free: data.isGlutenFree,
+      is_seafood: data.isSeafood,
+      badge: data.badge ?? null,
+      allergens: data.allergens ?? null,
+      sort_order: sortOrder,
     })
-    const sortOrder = (maxOrder.rows[0].m as number) + 1
-    await db.execute({
-      sql: `INSERT INTO menu_items
-            (category_id, name, description, price, price_gf, is_vegetarian, is_gluten_free,
-             is_seafood, badge, allergens, sort_order)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      args: [
-        categoryId, data.name, data.description,
-        data.price ?? null, data.priceGF ?? null,
-        data.isVegetarian ? 1 : 0, data.isGlutenFree ? 1 : 0, data.isSeafood ? 1 : 0,
-        data.badge ?? null, data.allergens ?? null, sortOrder,
-      ],
-    })
+    if (error) throw error
     invalidate(categoryId)
     return { error: '' }
   } catch (e) {
@@ -65,22 +69,24 @@ export async function createMenuItem(categoryId: string, prevState: { error: str
 }
 
 export async function updateMenuItem(id: string, categoryId: string, prevState: { error: string }, formData: FormData) {
-  await getAdminSession()
+  const { supabase } = await requireUser()
   try {
     const data = parseForm(formData)
-    await db.execute({
-      sql: `UPDATE menu_items SET
-              name=?, description=?, price=?, price_gf=?,
-              is_vegetarian=?, is_gluten_free=?, is_seafood=?,
-              badge=?, allergens=?
-            WHERE id=?`,
-      args: [
-        data.name, data.description,
-        data.price ?? null, data.priceGF ?? null,
-        data.isVegetarian ? 1 : 0, data.isGlutenFree ? 1 : 0, data.isSeafood ? 1 : 0,
-        data.badge ?? null, data.allergens ?? null, id,
-      ],
-    })
+    const { error } = await supabase
+      .from('menu_items')
+      .update({
+        name: data.name,
+        description: data.description,
+        price: data.price ?? null,
+        price_gf: data.priceGF ?? null,
+        is_vegetarian: data.isVegetarian,
+        is_gluten_free: data.isGlutenFree,
+        is_seafood: data.isSeafood,
+        badge: data.badge ?? null,
+        allergens: data.allergens ?? null,
+      })
+      .eq('id', id)
+    if (error) throw error
     invalidate(categoryId)
     return { error: '' }
   } catch (e) {
@@ -89,13 +95,15 @@ export async function updateMenuItem(id: string, categoryId: string, prevState: 
 }
 
 export async function deleteMenuItem(id: string, categoryId: string) {
-  await getAdminSession()
-  await db.execute({ sql: `UPDATE menu_items SET is_active = 0 WHERE id = ?`, args: [id] })
+  const { supabase } = await requireUser()
+  const { error } = await supabase.from('menu_items').update({ is_active: false }).eq('id', id)
+  if (error) { console.error('deleteMenuItem failed:', error); return }
   invalidate(categoryId)
 }
 
 export async function restoreMenuItem(id: string, categoryId: string) {
-  await getAdminSession()
-  await db.execute({ sql: `UPDATE menu_items SET is_active = 1 WHERE id = ?`, args: [id] })
+  const { supabase } = await requireUser()
+  const { error } = await supabase.from('menu_items').update({ is_active: true }).eq('id', id)
+  if (error) { console.error('restoreMenuItem failed:', error); return }
   invalidate(categoryId)
 }

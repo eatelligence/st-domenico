@@ -28,3 +28,6 @@ Thumbs.db
 /proposal-*.md
 /proposal-*.html
 /stdomenicopizzabar.com-*.json
+
+# TypeScript build info
+*.tsbuildinfo

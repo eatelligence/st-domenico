@@ -1,4 +1,4 @@
-import { db } from '../client'
+import { createClient } from '@/lib/supabase/server'
 
 export type AdminMenuItem = {
   id: string
@@ -26,56 +26,84 @@ export type AdminCategory = {
 }
 
 export async function getAdminCategories(): Promise<AdminCategory[]> {
-  const result = await db.execute(`
-    SELECT c.id, c.label, c.emoji, c.sort_order, c.is_active,
-           COUNT(i.id) as item_count
-    FROM menu_categories c
-    LEFT JOIN menu_items i ON i.category_id = c.id AND i.is_active = 1
-    GROUP BY c.id
-    ORDER BY c.sort_order ASC
-  `)
-  return result.rows.map((r) => ({
-    id: r.id as string,
-    label: r.label as string,
-    emoji: r.emoji as string,
-    sortOrder: r.sort_order as number,
-    isActive: r.is_active === 1,
-    itemCount: r.item_count as number,
+  const supabase = await createClient()
+  const { data: cats, error: catsError } = await supabase
+    .from('menu_categories')
+    .select('id, label, emoji, sort_order, is_active')
+    .order('sort_order', { ascending: true })
+  if (catsError) console.error('getAdminCategories failed:', catsError)
+  const { data: items, error: itemsError } = await supabase
+    .from('menu_items')
+    .select('category_id')
+    .eq('is_active', true)
+  if (itemsError) console.error('getAdminCategories failed:', itemsError)
+
+  const counts = new Map<string, number>()
+  for (const i of items ?? []) {
+    counts.set(i.category_id, (counts.get(i.category_id) ?? 0) + 1)
+  }
+
+  return (cats ?? []).map((c) => ({
+    id: c.id,
+    label: c.label,
+    emoji: c.emoji,
+    sortOrder: c.sort_order,
+    isActive: c.is_active,
+    itemCount: counts.get(c.id) ?? 0,
   }))
 }
 
+type ItemRow = {
+  id: string
+  category_id: string
+  name: string
+  description: string
+  price: string | null
+  price_gf: string | null
+  is_vegetarian: boolean
+  is_gluten_free: boolean
+  is_seafood: boolean
+  badge: string | null
+  allergens: string | null
+  sort_order: number
+  is_active: boolean
+}
+
+const ITEM_COLS =
+  'id, category_id, name, description, price, price_gf, is_vegetarian, is_gluten_free, is_seafood, badge, allergens, sort_order, is_active'
+
+function rowToItem(r: ItemRow): AdminMenuItem {
+  return {
+    id: r.id,
+    categoryId: r.category_id,
+    name: r.name,
+    description: r.description,
+    price: r.price,
+    priceGF: r.price_gf,
+    isVegetarian: r.is_vegetarian,
+    isGlutenFree: r.is_gluten_free,
+    isSeafood: r.is_seafood,
+    badge: r.badge,
+    allergens: r.allergens,
+    sortOrder: r.sort_order,
+    isActive: r.is_active,
+  }
+}
+
 export async function getAdminCategoryItems(categoryId: string): Promise<AdminMenuItem[]> {
-  const result = await db.execute({
-    sql: `SELECT id, category_id, name, description, price, price_gf,
-                 is_vegetarian, is_gluten_free, is_seafood, badge, allergens,
-                 sort_order, is_active
-          FROM menu_items WHERE category_id = ?
-          ORDER BY sort_order ASC`,
-    args: [categoryId],
-  })
-  return result.rows.map(rowToItem)
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('menu_items')
+    .select(ITEM_COLS)
+    .eq('category_id', categoryId)
+    .order('sort_order', { ascending: true })
+  if (error) console.error('getAdminCategoryItems failed:', error)
+  return (data ?? []).map((r) => rowToItem(r as ItemRow))
 }
 
 export async function getAdminItem(id: string): Promise<AdminMenuItem | null> {
-  const result = await db.execute({ sql: `SELECT * FROM menu_items WHERE id = ?`, args: [id] })
-  if (!result.rows[0]) return null
-  return rowToItem(result.rows[0])
-}
-
-function rowToItem(r: Record<string, unknown>): AdminMenuItem {
-  return {
-    id: r.id as string,
-    categoryId: r.category_id as string,
-    name: r.name as string,
-    description: r.description as string,
-    price: r.price as string | null,
-    priceGF: r.price_gf as string | null,
-    isVegetarian: r.is_vegetarian === 1,
-    isGlutenFree: r.is_gluten_free === 1,
-    isSeafood: r.is_seafood === 1,
-    badge: r.badge as string | null,
-    allergens: r.allergens as string | null,
-    sortOrder: r.sort_order as number,
-    isActive: r.is_active === 1,
-  }
+  const supabase = await createClient()
+  const { data, error } = await supabase.from('menu_items').select(ITEM_COLS).eq('id', id).maybeSingle()
+  if (error) console.error('getAdminItem failed:', error)
+  return data ? rowToItem(data as ItemRow) : null
 }
