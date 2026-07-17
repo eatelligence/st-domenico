@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import Accordion from '@/components/ui/Accordion'
 import ScrollReveal from '@/components/ui/ScrollReveal'
+import { restaurantInfo } from '@/lib/data/hours'
 
 const accordionItems = [
   {
@@ -75,7 +76,7 @@ const accordionItems = [
         <p className="mt-2">
           Order via{' '}
           <a
-            href="https://stdomenico.retweb.zt.io"
+            href={restaurantInfo.orderPickup}
             target="_blank"
             rel="noopener noreferrer"
             className="text-terracotta hover:underline"
@@ -84,12 +85,12 @@ const accordionItems = [
           </a>{' '}
           or{' '}
           <a
-            href="https://www.ubereats.com/au/store/st-domenico-pizza-bar/C_-PRbYYTc-chxgKwiOWhw?diningMode=DELIVERY&pl=JTdCJTIyYWRkcmVzcyUyMiUzQSUyMjQyOCUyMEJyaWRnZSUyMFJkJTIyJTJDJTIycmVmZXJlbmNlJTIyJTNBJTIyQ2hJSkFlZ3hjRmhDMW1vUi11QlhlMk9TRng4JTIyJTJDJTIycmVmZXJlbmNlVHlwZSUyMiUzQSUyMmdvb2dsZV9wbGFjZXMlMjIlMkMlMjJsYXRpdHVkZSUyMiUzQS0zNy44MTkzOTMlMkMlMjJsb25naXR1ZGUlMjIlM0ExNDUuMDA1ODkyMDAwMDAwMDIlN0Q%3D&ps=1&sc=SEARCH_SUGGESTION"
+            href={restaurantInfo.orderDelivery}
             target="_blank"
             rel="noopener noreferrer"
             className="text-terracotta hover:underline"
           >
-            Uber Eats
+            Delivery
           </a>
           .
         </p>
