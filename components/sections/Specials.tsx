@@ -116,6 +116,8 @@ function SpecialCard({ special, index }: { special: Special; index: number }) {
 }
 
 export default function Specials({ specials }: { specials: Special[] }) {
+  if (specials.length === 0) return null
+
   return (
     <section
       id="specials"
