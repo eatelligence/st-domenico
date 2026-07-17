@@ -107,3 +107,87 @@ export async function getAdminItem(id: string): Promise<AdminMenuItem | null> {
   if (error) console.error('getAdminItem failed:', error)
   return data ? rowToItem(data as ItemRow) : null
 }
+
+export type AdminSpecial = {
+  id: string
+  title: string
+  subtitle: string
+  description: string
+  highlight: string | null
+  days: string
+  time: string | null
+  note: string | null
+  imageUrl: string
+  theme: 'green' | 'terracotta' | 'charcoal'
+  sortOrder: number
+  isActive: boolean
+}
+
+export type AdminBanner = {
+  id: string
+  message: string
+  href: string
+  isActive: boolean
+}
+
+type SpecialRow = {
+  id: string
+  title: string
+  subtitle: string
+  description: string
+  highlight: string | null
+  days: string
+  time: string | null
+  note: string | null
+  image_url: string
+  theme: string
+  sort_order: number
+  is_active: boolean
+}
+
+const SPECIAL_COLS =
+  'id, title, subtitle, description, highlight, days, time, note, image_url, theme, sort_order, is_active'
+
+function rowToSpecial(r: SpecialRow): AdminSpecial {
+  return {
+    id: r.id,
+    title: r.title,
+    subtitle: r.subtitle,
+    description: r.description,
+    highlight: r.highlight,
+    days: r.days,
+    time: r.time,
+    note: r.note,
+    imageUrl: r.image_url,
+    theme: r.theme as AdminSpecial['theme'],
+    sortOrder: r.sort_order,
+    isActive: r.is_active,
+  }
+}
+
+export async function getAdminSpecials(): Promise<AdminSpecial[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('specials')
+    .select(SPECIAL_COLS)
+    .order('sort_order', { ascending: true })
+  if (error) console.error('getAdminSpecials failed:', error)
+  return (data ?? []).map((r) => rowToSpecial(r as SpecialRow))
+}
+
+export async function getAdminSpecial(id: string): Promise<AdminSpecial | null> {
+  const supabase = await createClient()
+  const { data, error } = await supabase.from('specials').select(SPECIAL_COLS).eq('id', id).maybeSingle()
+  if (error) console.error('getAdminSpecial failed:', error)
+  return data ? rowToSpecial(data as SpecialRow) : null
+}
+
+export async function getAdminBanner(): Promise<AdminBanner | null> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('site_banner')
+    .select('id, message, href, is_active')
+    .maybeSingle()
+  if (error) console.error('getAdminBanner failed:', error)
+  return data ? { id: data.id, message: data.message, href: data.href, isActive: data.is_active } : null
+}
