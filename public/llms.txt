@@ -14,8 +14,8 @@ Located at 428 Bridge Rd, Richmond VIC 3121. Phone 0468 318 624. Price range $$.
 ## Booking & ordering
 
 - [Book a table](https://www.resdiary.com/restaurant/StDomenico): Online reservations via ResDiary
-- [Order pickup](https://www.kravein.com.au/order-food/Pickup/st-domenico-richmond): Order takeaway for collection via Kravein
-- [Order delivery](https://www.kravein.com.au/order-food/Delivery/st-domenico-richmond): Order delivery via Kravein
+- [Order pickup](https://stdomenico.retweb.zt.io): Order takeaway for collection
+- [Order delivery](https://stdomenico.retweb.zt.io): Order delivery
 
 ## Connect
 
