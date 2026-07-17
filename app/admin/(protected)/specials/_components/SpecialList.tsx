@@ -99,7 +99,11 @@ export default function SpecialList({ specials }: { specials: AdminSpecial[] }) 
       </div>
 
       <div className="lg:w-80 shrink-0">
-        <SpecialForm editSpecial={editSpecial} onCancelEdit={() => setEditSpecial(null)} />
+        <SpecialForm
+          key={editSpecial?.id ?? 'new'}
+          editSpecial={editSpecial}
+          onCancelEdit={() => setEditSpecial(null)}
+        />
       </div>
     </div>
   )
