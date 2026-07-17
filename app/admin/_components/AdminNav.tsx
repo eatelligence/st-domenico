@@ -3,11 +3,13 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { logout } from '@/app/admin/actions/auth'
-import { LayoutGrid, Tag, LogOut } from 'lucide-react'
+import { LayoutGrid, Tag, Sparkles, Megaphone, LogOut } from 'lucide-react'
 
 const links = [
   { href: '/admin/menu', label: 'Menu', icon: LayoutGrid },
   { href: '/admin/categories', label: 'Categories', icon: Tag },
+  { href: '/admin/specials', label: 'Specials', icon: Sparkles },
+  { href: '/admin/banner', label: 'Banner', icon: Megaphone },
 ]
 
 export default function AdminNav() {

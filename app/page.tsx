@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic'
 import StickyHeader from '@/components/sections/StickyHeader'
 import Hero from '@/components/sections/Hero'
 import About from '@/components/sections/About'
-import Specials from '@/components/sections/Specials'
+import SpecialsServer from '@/components/sections/SpecialsServer'
 import MenuServer from '@/components/sections/MenuServer'
 
 // Code-split below-fold sections — defers their JS from the initial hydration burst
@@ -19,7 +19,7 @@ export default function Home() {
       <StickyHeader />
       <Hero />
       <About />
-      <Specials />
+      <SpecialsServer />
       <BookingWidget />
       <MenuServer />
       <Gallery />

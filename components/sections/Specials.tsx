@@ -2,24 +2,16 @@
 
 import { useRef, MouseEvent, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { specials } from '@/lib/data/specials'
+import type { Special } from '@/lib/data/specials'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
-const specialImages = [
-  '/images/0J5A9373.webp',
-  '/images/image-asset.webp',
-  '/images/STDOM_OCT_PS--07.webp',
-]
+const themeGradients: Record<Special['theme'], string> = {
+  green: 'bg-gradient-to-t from-deep-green/95 via-deep-green/60 to-deep-green/20',
+  terracotta: 'bg-gradient-to-t from-terracotta/95 via-terracotta/60 to-terracotta/20',
+  charcoal: 'bg-gradient-to-t from-charcoal/95 via-charcoal/70 to-charcoal/30',
+}
 
-function SpecialCard({
-  special,
-  index,
-  imageUrl,
-}: {
-  special: (typeof specials)[0]
-  index: number
-  imageUrl: string
-}) {
+function SpecialCard({ special, index }: { special: Special; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null)
   const rectRef = useRef<DOMRect | null>(null)
   const [isTouchDevice, setIsTouchDevice] = useState(true)
@@ -47,12 +39,6 @@ function SpecialCard({
     if (cardRef.current) cardRef.current.style.transform = ''
   }
 
-  const gradients = [
-    'bg-gradient-to-t from-deep-green/95 via-deep-green/60 to-deep-green/20',
-    'bg-gradient-to-t from-terracotta/95 via-terracotta/60 to-terracotta/20',
-    'bg-gradient-to-t from-charcoal/95 via-charcoal/70 to-charcoal/30',
-  ]
-
   return (
     <ScrollReveal delay={index * 0.15}>
       <div
@@ -66,7 +52,7 @@ function SpecialCard({
         {/* Background image */}
         <div className="absolute inset-0">
           <Image
-            src={imageUrl}
+            src={special.imageUrl}
             alt={special.title}
             fill
             quality={65}
@@ -76,7 +62,7 @@ function SpecialCard({
         </div>
 
         {/* Gradient */}
-        <div className={`absolute inset-0 ${gradients[index]}`} />
+        <div className={`absolute inset-0 ${themeGradients[special.theme]}`} />
 
         {/* Content */}
         <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end">
@@ -129,7 +115,9 @@ function SpecialCard({
   )
 }
 
-export default function Specials() {
+export default function Specials({ specials }: { specials: Special[] }) {
+  if (specials.length === 0) return null
+
   return (
     <section
       id="specials"
@@ -167,12 +155,7 @@ export default function Specials() {
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {specials.map((special, i) => (
-            <SpecialCard
-              key={special.id}
-              special={special}
-              index={i}
-              imageUrl={specialImages[i]}
-            />
+            <SpecialCard key={special.id} special={special} index={i} />
           ))}
         </div>
 

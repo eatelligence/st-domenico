@@ -2,13 +2,13 @@
 
 import { ChevronRight, X } from 'lucide-react'
 
-const MSG = '🍰  Free Nutella Calzone after dinner Tue – Thu  ·  Book Now  ›'
-
 interface TopBarProps {
+  message: string
+  href: string
   onDismiss?: () => void
 }
 
-export default function TopBar({ onDismiss }: TopBarProps) {
+export default function TopBar({ message, href, onDismiss }: TopBarProps) {
   return (
     <div className="bg-terracotta text-cream relative overflow-hidden" style={{ height: '36px' }}>
       {/* Marquee track — two copies side-by-side so the loop is seamless */}
@@ -18,11 +18,11 @@ export default function TopBar({ onDismiss }: TopBarProps) {
           {Array.from({ length: 6 }).map((_, i) => (
             <a
               key={i}
-              href="#bookings"
+              href={href}
               className="inline-flex items-center gap-2 px-12 text-[11px] sm:text-xs font-inter tracking-wide hover:text-gold-light transition-colors"
-              aria-label="Book now — Free Nutella Calzone offer"
+              aria-label={message}
             >
-              <span>{MSG}</span>
+              <span>{message}</span>
               <ChevronRight size={11} className="opacity-70 shrink-0" />
             </a>
           ))}
