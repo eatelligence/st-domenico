@@ -31,25 +31,13 @@ const bebas = Bebas_Neue({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://stdomenicopizzabar.com'),
-  title: 'Best Neapolitan Pizza in Richmond Melbourne | St Domenico Pizza Bar',
+  title: 'Italian Restaurant & Pizzeria Richmond | St Domenico',
   description:
-    'Authentic wood-fired Neapolitan pizza in Richmond, Melbourne. San Marzano tomatoes, imported fior di latte, BYO wine. Open Tue–Sun. Book online.',
-  keywords: [
-    'Neapolitan pizza Richmond Melbourne',
-    'best pizza Richmond Melbourne',
-    'St Domenico pizza bar',
-    'Italian restaurant Richmond',
-    'wood fired pizza Melbourne',
-    'pizza bar Richmond Melbourne',
-    'BYO pizza Richmond',
-    'authentic Neapolitan pizza Melbourne',
-    'pizza Bridge Road Richmond',
-    'gluten free pizza Richmond',
-  ],
+    'Italian restaurant and wood-fired pizzeria on Bridge Rd, Richmond. Neapolitan pizza, house pasta, BYO wine. Open Tue–Sun from 4:30pm. Book a table online.',
   authors: [{ name: 'St Domenico Pizza Bar' }],
   openGraph: {
-    title: 'Best Neapolitan Pizza in Richmond Melbourne | St Domenico Pizza Bar',
-    description: 'Wood-fired Neapolitan pizza in Richmond, Melbourne. Hand-stretched dough, San Marzano tomatoes, imported fior di latte. BYO wine. Open Tue–Sun. Book online.',
+    title: 'Italian Restaurant & Pizzeria Richmond | St Domenico',
+    description: 'Italian restaurant and wood-fired pizzeria on Bridge Rd, Richmond. Neapolitan pizza, house pasta, BYO wine. Open Tue–Sun from 4:30pm. Book a table online.',
     url: 'https://stdomenicopizzabar.com',
     siteName: 'St Domenico Pizza Bar',
     locale: 'en_AU',
@@ -65,8 +53,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Best Neapolitan Pizza in Richmond Melbourne | St Domenico Pizza Bar',
-    description: 'Wood-fired Neapolitan pizza in Richmond, Melbourne. BYO wine. Open Tue–Sun.',
+    title: 'Italian Restaurant & Pizzeria Richmond | St Domenico',
+    description: 'Italian restaurant and wood-fired pizzeria on Bridge Rd, Richmond. BYO wine. Open Tue–Sun.',
     images: ['/images/og-image.jpg'],
   },
   robots: {
@@ -119,14 +107,11 @@ const jsonLd = {
   ],
   hasMap: restaurantInfo.googleMaps,
   sameAs: [restaurantInfo.instagram, restaurantInfo.facebook],
-  hasMenu: 'https://stdomenicopizzabar.com/#menu',
+  hasMenu: 'https://stdomenicopizzabar.com/menu',
   acceptsReservations: restaurantInfo.bookingUrl,
   image: ['/images/restaurant-1.jpg', '/images/pizza-1.jpg', '/images/interior-1.jpg'],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.7',
-    reviewCount: '342',
-  },
+  // No aggregateRating: self-serving review markup (ratings not collected on this
+  // site) violates Google's structured data guidelines and risks a manual action.
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

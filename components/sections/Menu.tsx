@@ -108,7 +108,14 @@ export default function Menu({ initialCategories }: { initialCategories: MenuCat
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <p className="font-inter text-charcoal/60 max-w-md mx-auto text-base sm:text-[17px]">
-              Every dish crafted with imported Italian ingredients. Gluten-free bases available on all pizzas.
+              Every dish crafted with imported Italian ingredients. Gluten-free bases available on all pizzas.{' '}
+              <a
+                href="/menu"
+                className="text-terracotta underline underline-offset-4 hover:text-terracotta/80 transition-colors"
+              >
+                View the full menu
+              </a>
+              .
             </p>
           </ScrollReveal>
           <ScrollReveal delay={0.25}>

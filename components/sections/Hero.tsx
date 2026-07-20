@@ -74,8 +74,9 @@ export default function Hero() {
           className="hero-anim hidden sm:block font-inter text-cream/75 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed"
           style={anim(1.3, 0.8, 'fade')}
         >
-          Richmond Melbourne&apos;s home of authentic Neapolitan pizza — wood-fired, hand-stretched,
-          made with imported San Marzano tomatoes and fior di latte. Open Tuesday to Sunday from 4:30pm. BYO wine.
+          An Italian restaurant and wood-fired pizzeria on Bridge Rd, Richmond — hand-stretched
+          Neapolitan pizza, house-made pasta, imported San Marzano tomatoes and fior di latte.
+          Open Tuesday to Sunday from 4:30pm. BYO wine.
         </p>
 
         {/* Short subtitle on xs only */}
@@ -83,7 +84,7 @@ export default function Hero() {
           className="hero-anim sm:hidden font-inter text-cream/70 text-sm mx-auto mb-7 leading-relaxed"
           style={anim(1.3, 0.8, 'fade')}
         >
-          Authentic Neapolitan pizza · Richmond · BYO wine
+          Italian restaurant &amp; pizzeria · Richmond · BYO wine
         </p>
 
         {/* CTAs */}

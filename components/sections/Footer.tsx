@@ -91,12 +91,15 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5">
               {[
-                { label: 'About', href: '#about' },
-                { label: 'Our Menu', href: '#menu' },
-                { label: 'Functions', href: '#bookings' },
-                { label: "What's On", href: '#specials' },
-                { label: 'Gallery', href: '#gallery' },
-                { label: 'Contact', href: '#contact' },
+                // Root-relative anchors so these resolve from /menu and /pizza too,
+                // not just the homepage.
+                { label: 'About', href: '/#about' },
+                { label: 'Our Menu', href: '/menu' },
+                { label: 'Our Pizza', href: '/pizza' },
+                { label: 'Functions', href: '/#bookings' },
+                { label: "What's On", href: '/#specials' },
+                { label: 'Gallery', href: '/#gallery' },
+                { label: 'Contact', href: '/#contact' },
               ].map((link) => (
                 <li key={link.href}>
                   <a
@@ -118,7 +121,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="#bookings"
+                  href="/#bookings"
                   className="inline-flex items-center gap-2 font-bebas text-sm tracking-widest bg-terracotta text-cream px-6 py-3 hover:bg-gold hover:text-charcoal transition-all duration-300"
                 >
                   Book a Table
