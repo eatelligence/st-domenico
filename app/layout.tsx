@@ -70,6 +70,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://stdomenicopizzabar.com',
   },
+  verification: {
+    google: 'GTpcrQhqu4ESHoctX0QgX6mO9ic3nX93KHLxQemQNxo',
+  },
 }
 
 const jsonLd = {
